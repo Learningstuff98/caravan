@@ -12,9 +12,67 @@
 
   <body>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="content">
+      <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse header-color">
+        <div class="green">
+          <h4><%= link_to 'Go To Homepage', root_path, class: "green" %></h4>
+          <% if current_user %>
+            <h5><%= "Currently logged in as #{current_user.username}" %></h5>
+          <% end %>
+        </div>
 
-    <%= yield %>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="green">More Info</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <%= link_to "How to play", "#", class: "green" %> 
+          <br/>
+          <% if current_user %>
+            <%= link_to "My profile", "#", class: "green" %>
+          <% else %>
+            <%= link_to "Log in to view your profile", new_user_session_path, class: "green" %>
+          <% end %>
+        </div>
+      </nav>
+  
+      <h4 class="green text-center user-notice">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </h4>
+
+      <%= yield %>
+    </div>
+
+    <div class="footer">
+      <div class="row">
+        <div class="column leftward-footer-elements">
+          <%= link_to "How to play", "#", class: "green" %>
+          <br/>
+          <% if current_user %>
+            <%= link_to "My profile", "#", class: "green" %>
+          <% else %>
+            <%= link_to "Log in to view your profile", new_user_session_path, class: "green" %>
+          <% end %>
+          <br/>
+          andystrube64@gmail.com
+        </div>
+        <div class="column">
+          <%= link_to 'https://github.com/Learningstuff98/caravan' do %>
+            <div class="fa fa-github-square link green"> Github</div>
+          <% end %>
+          <br/>
+          <%= link_to 'https://www.linkedin.com/in/andy-strube-6231ba152/' do %>
+            <div class="fa fa-linkedin-square link green"> Linkedin</div>
+          <% end %>
+          <br/>
+          <%= link_to 'https://docs.google.com/document/d/1qm4nBdIZfsx8zh4IwYvkVuQYclpOXUCVxnC9vV3_eBM/edit' do %>
+            <div class="fa fa-file-text link green"> Resume</div>
+          <% end %>
+          <br/>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
