@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import TripleDot from './TripleDot';
+import consumer from "channels/consumer"
 
 export default function Lobby({ game_tokens, lobbyUrl }) {
   const [tokens, setTokens] = useState([]);
 
   useEffect(() => {
     setTokens(game_tokens);
+    handleWebsocketUpdates();
   }, []);
+
+  const handleWebsocketUpdates = () => {
+    consumer.subscriptions.create({channel: "LobbyChannel"}, {
+      received(data) { setTokens(data.tokens) }
+    });
+  };
 
   const getOnlyRoot = (lobbyUrl) => {
     return lobbyUrl.replace('lobby', '');

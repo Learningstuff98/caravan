@@ -1,4 +1,6 @@
 Rails.application.configure do
+  config.web_socket_server_url = "wss://caravan-andy-strube.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://caravan-andy-strube.herokuapp.com', 'http://caravan-andy-strube.herokuapp.com']
   config.action_mailer.default_url_options = { host: 'caravan-andy-strube.herokuapp.com' }
   # Settings specified here will take precedence over those in config/application.rb.
 
