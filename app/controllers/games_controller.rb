@@ -3,6 +3,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create()
+    @game.game_tokens.create(host_username: @game.user.username)
     redirect_to game_path(@game)
   end
 
@@ -12,6 +13,7 @@ class GamesController < ApplicationController
 
   def destroy
     @game = current_game
+    @game.game_tokens.destroy_all
     @game.destroy
     redirect_to root_path
   end

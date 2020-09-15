@@ -4,6 +4,9 @@
       <%= simple_form_for @game, url: games_path do |f| %>
         <h3><%= f.submit 'Host match', class: 'green btn btn-primary' %></h3>
       <% end %>
+      <br/>
+      <h3><%= link_to "Go to lobby", lobby_path, class: "green" %></h3>
+      <br/>
       <h3><%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "green" %></h3>
     <% else %>
       <h3><%= link_to "Log in", new_user_session_path, class: "green" %></h3>

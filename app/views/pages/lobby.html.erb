@@ -1,0 +1,12 @@
+<div class="green page-content">
+  <h1>Lobby</h1>
+
+  <br/><br/>
+
+  <% url = url_for :only_path => false, :overwrite_params => {}  %>
+  <%= react_component("Lobby", {
+    game_tokens: @game_tokens,
+    lobbyUrl: url 
+  }) %>
+
+</div>

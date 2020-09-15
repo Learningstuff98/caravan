@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_074441) do
+ActiveRecord::Schema.define(version: 2020_09_14_225732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "game_tokens", force: :cascade do |t|
+    t.integer "game_id"
+    t.string "host_username"
+    t.index ["game_id"], name: "index_game_tokens_on_game_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.integer "user_id"
