@@ -2,7 +2,7 @@
   <div class="text-center box col-8">
     <% if current_user %>
       <%= simple_form_for @game, url: games_path do |f| %>
-        <h3><%= f.submit 'Host match', class: 'green btn btn-primary' %></h3>
+        <h3><%= f.submit 'Host match', class: 'green host-match-btn' %></h3>
       <% end %>
       <br/>
       <h3><%= link_to "Go to lobby", lobby_path, class: "green" %></h3>

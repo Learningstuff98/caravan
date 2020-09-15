@@ -87,3 +87,14 @@ body {
 .page-content {
   margin-left: 20px;
 }
+
+.host-match-btn {
+  background-color: transparent;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.host-match-btn:hover {
+  color: rgb(14, 73, 168);
+  text-decoration: underline;
+}
