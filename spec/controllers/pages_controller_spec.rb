@@ -21,4 +21,18 @@ RSpec.describe PagesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "set_deck action" do
+    it "should authenticate the user" do
+      get :set_deck
+      expect(response).to redirect_to new_user_session_path
+    end
+
+    it "should load the page" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :set_deck
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
