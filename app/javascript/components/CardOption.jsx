@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function CardOption({ card, userCards, root, getCards }) {
-  const [addedStatus, setAddedStatus] = useState("");
+  const [addedStatus, setAddedStatus] = useState(false);
   const [userCard, setUserCard] = useState(null);
 
   useEffect(() => {
@@ -12,10 +12,12 @@ export default function CardOption({ card, userCards, root, getCards }) {
   const checkForMatch = () => {
     for(const userCard of userCards) {
       if(card.suit === userCard.suit && card.value === userCard.value) {
-        setAddedStatus("added-to-deck");
+        setAddedStatus(true);
         setUserCard(userCard);
+        return;
       }
     }
+    setAddedStatus(false);
   };
 
   const addCard = (card) => {
@@ -24,16 +26,26 @@ export default function CardOption({ card, userCards, root, getCards }) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const renderAddedStatus = () => {
-    return <div onClick={() => addCard(card)}>
-      Click to add this card
-    </div>
+  const deleteCard = () => {
+    axios.delete(`${root}cards/${userCard.id}`)
+    .then(() => getCards())
+    .catch((err) => console.log(err.response.data));
   };
 
-  return <div className={addedStatus}>
-    {renderAddedStatus()}
-    <span>{card.face}</span>
-    <span>{card.value}</span>{" "}
-    <span>{card.suit}</span>
-  </div>  
+  if(addedStatus) {
+    return <div className="added-to-deck">
+      <span>{card.face}</span>
+      <span>{card.value}</span>{" "}
+      <span>{card.suit}</span>
+      <h1 onClick={() => deleteCard()}>
+        delete this card
+      </h1>
+    </div> 
+  } else {
+    return <div onClick={() => addCard(card)}>
+      <span>{card.face}</span>
+      <span>{card.value}</span>{" "}
+      <span>{card.suit}</span>
+    </div> 
+  }
 }
