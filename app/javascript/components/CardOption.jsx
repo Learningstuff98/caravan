@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function CardOption({ card, userCards, root, getCards }) {
-  const [addedStatus, setAddedStatus] = useState(false);
+  const [addedStatus, setAddedStatus] = useState("added-to-deck");
   const [userCard, setUserCard] = useState(null);
 
   useEffect(() => {
@@ -12,12 +12,12 @@ export default function CardOption({ card, userCards, root, getCards }) {
   const checkForMatch = () => {
     for(const userCard of userCards) {
       if(card.suit === userCard.suit && card.value === userCard.value) {
-        setAddedStatus(true);
+        setAddedStatus("added-to-deck");
         setUserCard(userCard);
         return;
       }
     }
-    setAddedStatus(false);
+    setAddedStatus("");
   };
 
   const addCard = (card) => {
@@ -32,20 +32,35 @@ export default function CardOption({ card, userCards, root, getCards }) {
     .catch((err) => console.log(err.response.data));
   };
 
-  if(addedStatus) {
-    return <div className="added-to-deck">
-      <span>{card.face}</span>
-      <span>{card.value}</span>{" "}
-      <span>{card.suit}</span>
-      <h1 onClick={() => deleteCard()}>
-        delete this card
-      </h1>
-    </div> 
-  } else {
+  const addCardButton = () => {
     return <div onClick={() => addCard(card)}>
+      Add this card
+    </div>
+  };
+
+  const deleteCardButton = () => {
+    return <div onClick={() => deleteCard()}>
+      delete this card
+    </div>
+  };
+
+  const handleButtonType = () => {
+    if(addedStatus) {
+      return deleteCardButton();
+    }
+    return addCardButton();
+  };
+
+  const buildCardOptionBody = () => {
+    return <div>
       <span>{card.face}</span>
       <span>{card.value}</span>{" "}
       <span>{card.suit}</span>
-    </div> 
-  }
+    </div>
+  };
+
+  return <div className={addedStatus}>
+    {buildCardOptionBody()}
+    {handleButtonType()}
+  </div>
 }
