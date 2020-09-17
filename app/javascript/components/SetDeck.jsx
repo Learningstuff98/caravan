@@ -20,14 +20,12 @@ export default function SetDeck({ setDeckUrl, cards }) {
   };
 
   const renderCardOption = (card) => { // figure out how to give each element a unique key
-    return <h3 className="cursor">
-      <CardOption
-        card={card}
-        userCards={userCards}
-        root={getOnlyRoot(setDeckUrl)}
-        getCards={getCards}
-      />
-    </h3>
+    return <CardOption
+      card={card}
+      userCards={userCards}
+      root={getOnlyRoot(setDeckUrl)}
+      getCards={getCards}
+    />
   };
 
   const suits = () => {
