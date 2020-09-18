@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function CardOption({ card, userCards, root, getCards }) {
-  const [addedStatus, setAddedStatus] = useState("added-to-deck");
+  const [addedStatus, setAddedStatus] = useState("");
   const [userCard, setUserCard] = useState(null);
 
   useEffect(() => {
@@ -11,13 +11,23 @@ export default function CardOption({ card, userCards, root, getCards }) {
 
   const checkForMatch = () => {
     for(const userCard of userCards) {
-      if(card.suit === userCard.suit && card.value === userCard.value) {
-        setAddedStatus("added-to-deck");
-        setUserCard(userCard);
-        return;
+      if(card.suit === userCard.suit) {
+        if(card.value === userCard.value) {
+          handleMatch(userCard);
+          return;
+        }
+        if(card.face === userCard.face) {
+          handleMatch(userCard);
+          return;
+        }
       }
     }
     setAddedStatus("");
+  };
+
+  const handleMatch = (userCard) => {
+    setAddedStatus("added-to-deck");
+    setUserCard(userCard);
   };
 
   const addCard = (card) => {

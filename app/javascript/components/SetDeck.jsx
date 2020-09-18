@@ -32,6 +32,10 @@ export default function SetDeck({ setDeckUrl, cards }) {
     return ['diamonds', 'spades', 'hearts', 'clubs'];
   };
 
+  const faces = () => {
+    return ['king', 'queen', 'jack'];
+  };
+
   const values = () => {
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   };
@@ -44,7 +48,16 @@ export default function SetDeck({ setDeckUrl, cards }) {
     });
   };
 
+  const renderFaceCardOptions = () => {
+    return suits().map((suit) => {
+      return faces().map((face) => {
+        return renderCardOption({suit: suit, face: face});
+      });
+    });
+  };
+
   return <div>
     {renderNumberCardOptions()}
+    {renderFaceCardOptions()}
   </div>
 }
