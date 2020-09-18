@@ -61,10 +61,19 @@ export default function CardOption({ card, userCards, root, getCards }) {
     return addCardButton();
   };
 
+  const faceAceOrNumber = () => {
+    if(card.face) {
+      return <span>{card.face}</span>
+    }
+    if(card.value === 1) {
+      return <span>Ace</span>
+    }
+    return <span>{card.value}</span>
+  };
+
   const buildCardOptionBody = () => {
     return <div>
-      <span>{card.face}</span>
-      <span>{card.value}</span>{" "}
+      {faceAceOrNumber()}{" of "}
       <span>{card.suit}</span>
     </div>
   };
