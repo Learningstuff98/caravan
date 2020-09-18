@@ -78,7 +78,7 @@ export default function CardOption({ card, userCards, root, getCards }) {
     </div>
   };
 
-  return <h3 className={`cursor ${addedStatus}`}>
+  return <h3 className={`cursor card-option-box ${addedStatus}`}>
     {buildCardOptionBody()}
     {handleButtonType()}
   </h3>

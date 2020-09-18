@@ -106,3 +106,13 @@ body {
 .added-to-deck {
   color: rgb(77, 108, 211);
 }
+
+.card-option-box {
+  padding: 10px;
+  border: 2px solid;
+  border-color: #00C122;
+  border-radius: 10px;
+  background-color: rgba(24, 21, 22, 0.9);
+  margin-top: 30px;
+  max-width: 300px;
+}

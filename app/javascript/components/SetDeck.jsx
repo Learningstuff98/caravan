@@ -29,11 +29,11 @@ export default function SetDeck({ setDeckUrl, cards }) {
   };
 
   const suits = () => {
-    return ['diamonds', 'spades', 'hearts', 'clubs'];
+    return ['Diamonds', 'Spades', 'Hearts', 'Clubs'];
   };
 
   const faces = () => {
-    return ['king', 'queen', 'jack'];
+    return ['King', 'Queen', 'Jack'];
   };
 
   const values = () => {
@@ -59,5 +59,6 @@ export default function SetDeck({ setDeckUrl, cards }) {
   return <div>
     {renderNumberCardOptions()}
     {renderFaceCardOptions()}
+    <br/>
   </div>
 }
