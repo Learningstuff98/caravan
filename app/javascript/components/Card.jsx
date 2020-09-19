@@ -31,12 +31,20 @@ export default function Card({ card }) {
     return 'black';
   };
 
+  const handleFace = () => {
+    if(card.face) {
+      return <span>{card.face[0]}</span>
+    }
+  };
+
   return <div className={`card ${handleColor()}`}>
     <span className="upper-number">
       {handleValue()}
+      {handleFace()}
     </span>
     <span className="lower-number">
       {handleValue()}
+      {handleFace()}
     </span>
   </div>
 }
