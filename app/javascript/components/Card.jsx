@@ -38,13 +38,16 @@ export default function Card({ card }) {
   };
 
   return <div className={`card ${handleColor()}`}>
-    <span className="upper-number">
+    <span className="upper-character">
       {handleValue()}
       {handleFace()}
+      {handleSuit()}
     </span>
-    <span className="lower-number">
+    <span className="suit">{handleSuit()}</span>
+    <span className="lower-character">
       {handleValue()}
       {handleFace()}
+      {handleSuit()}
     </span>
   </div>
 }
