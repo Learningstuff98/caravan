@@ -28,7 +28,7 @@
 .leftward-footer-elements {
   margin-left: 10px;
 }
-  
+
 // what drives the sticky footer behavior
 
 .content {
@@ -115,4 +115,24 @@ body {
   background-color: rgba(24, 21, 22, 0.9);
   margin-top: 30px;
   max-width: 300px;
+}
+
+.card {
+  height: 200px;
+  width: 120px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.set-deck-card-placement {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.black {
+  color: black;
+}
+
+.red {
+  color: rgb(104, 24, 24);
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Card from './Card';
 
 export default function CardOption({ card, userCards, root, getCards }) {
   const [addedStatus, setAddedStatus] = useState("");
@@ -43,13 +44,13 @@ export default function CardOption({ card, userCards, root, getCards }) {
   };
 
   const addCardButton = () => {
-    return <div onClick={() => addCard(card)}>
+    return <div className="cursor" onClick={() => addCard(card)}>
       Add this card
     </div>
   };
 
   const deleteCardButton = () => {
-    return <div onClick={() => deleteCard()}>
+    return <div className='cursor' onClick={() => deleteCard()}>
       delete this card
     </div>
   };
@@ -78,8 +79,17 @@ export default function CardOption({ card, userCards, root, getCards }) {
     </div>
   };
 
-  return <h3 className={`cursor card-option-box ${addedStatus}`}>
+  const renderCard = () => {
+    return < Card
+      card={card}
+    />
+  };
+
+  return <h3 className={`card-option-box text-center ${addedStatus}`}>
     {buildCardOptionBody()}
     {handleButtonType()}
+    <div className="set-deck-card-placement">
+      {renderCard()}
+    </div>
   </h3>
 }
