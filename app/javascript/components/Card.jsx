@@ -37,13 +37,25 @@ export default function Card({ card }) {
     }
   };
 
+  const handleMiddleSymbol = () => {
+    if(card.face) {
+      if(card.face === "Queen") {
+        return <span className="suit">♛</span>
+      }
+      if(card.face === "King") {
+        return <span className="suit">♚</span>
+      }
+    }
+    return <span className="suit">{handleSuit()}</span>
+  };
+
   return <div className={`card ${handleColor()}`}>
     <span className="upper-character">
       {handleValue()}
       {handleFace()}
       {handleSuit()}
     </span>
-    <span className="suit">{handleSuit()}</span>
+    {handleMiddleSymbol()}
     <span className="lower-character">
       {handleValue()}
       {handleFace()}
