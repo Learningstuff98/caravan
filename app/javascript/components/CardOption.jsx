@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 
-export default function CardOption({ card, userCards, root, getCards }) {
+export default function CardOption({ card, userCards, root, getCards, flipChars }) {
   const [addedStatus, setAddedStatus] = useState("");
   const [userCard, setUserCard] = useState(null);
 
@@ -51,7 +51,7 @@ export default function CardOption({ card, userCards, root, getCards }) {
 
   const deleteCardButton = () => {
     return <div className='cursor' onClick={() => deleteCard()}>
-      delete this card
+      Remove this card
     </div>
   };
 
@@ -82,6 +82,7 @@ export default function CardOption({ card, userCards, root, getCards }) {
   const renderCard = () => {
     return < Card
       card={card}
+      flipChars={flipChars}
     />
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Card({ card }) {
+export default function Card({ card, flipChars }) {
 
   const handleSuit = () => {
     if(card.suit === "Clubs") {
@@ -49,6 +49,12 @@ export default function Card({ card }) {
     return <span className="suit">{handleSuit()}</span>
   };
 
+  const handleFlippingChars = () => {
+    if(flipChars) {
+      return 'flipChars';
+    }
+  };
+
   return <div className={`card ${handleColor()}`}>
     <span className="upper-characters">
       <span className="left-character">
@@ -61,7 +67,7 @@ export default function Card({ card }) {
       {handleSuit()}
     </span>
     {handleMiddleSymbol()}
-    <span className="lower-characters">
+    <span className={`lower-characters ${handleFlippingChars()}`}>
       <span className="left-character">
         {handleValue()}
         {handleFace()}
