@@ -50,13 +50,23 @@ export default function Card({ card }) {
   };
 
   return <div className={`card ${handleColor()}`}>
-    <span className="upper-character">
+    <span className="upper-characters">
+      <span className="left-character">
+        {handleValue()}
+        {handleFace()}
+        {handleSuit()}
+      </span>
       {handleValue()}
       {handleFace()}
       {handleSuit()}
     </span>
     {handleMiddleSymbol()}
-    <span className="lower-character">
+    <span className="lower-characters">
+      <span className="left-character">
+        {handleValue()}
+        {handleFace()}
+        {handleSuit()}
+      </span>
       {handleValue()}
       {handleFace()}
       {handleSuit()}
