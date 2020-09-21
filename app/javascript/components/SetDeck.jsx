@@ -19,7 +19,7 @@ export default function SetDeck({ setDeckUrl, cards }) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const renderCardOption = (card) => { // figure out how to give each element a unique key
+  const renderCardOption = (card) => {
     return <CardOption
       card={card}
       userCards={userCards}
@@ -43,7 +43,9 @@ export default function SetDeck({ setDeckUrl, cards }) {
   const renderNumberCardOptions = () => {
     return suits().map((suit) => {
       return values().map((value) => {
-        return renderCardOption({suit: suit, value: value});
+        return <div key={`${suit}${value}`}>
+          {renderCardOption({suit: suit, value: value})}
+        </div>
       });
     });
   };
@@ -51,7 +53,9 @@ export default function SetDeck({ setDeckUrl, cards }) {
   const renderFaceCardOptions = () => {
     return suits().map((suit) => {
       return faces().map((face) => {
-        return renderCardOption({suit: suit, face: face});
+        return <div key={`${suit}${face}`}>
+          {renderCardOption({suit: suit, face: face})}
+        </div>
       });
     });
   };
