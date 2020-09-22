@@ -18,9 +18,9 @@ RSpec.describe CardsController, type: :controller do
         }
       }
       expect(user.cards.count).to eq 1
-      expect(Card.first.value).to eq 1
-      expect(Card.first.suit).to eq "Spades"
-      expect(Card.first.face).to eq "King"
+      expect(user.cards.first.value).to eq 1
+      expect(user.cards.first.suit).to eq "Spades"
+      expect(user.cards.first.face).to eq "King"
     end
   end
 
