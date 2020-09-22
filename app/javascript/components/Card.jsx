@@ -20,6 +20,9 @@ export default function Card({ card, flipChars }) {
       if(card.value === 1) {
         return <span>A</span>
       }
+      if(card.value === 10) {
+        return <span className="ten">10</span> 
+      }
       return <span>{card.value}</span>
     }
   };
