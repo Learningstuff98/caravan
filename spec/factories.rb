@@ -15,4 +15,11 @@ FactoryBot.define do
     association :user
   end
 
+  factory :card do
+    value { 1 }
+    suit { "Spades" }
+    face { "King" }
+    association :user
+  end
+
 end
