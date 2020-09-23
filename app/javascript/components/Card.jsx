@@ -34,7 +34,7 @@ export default function Card({ card, flipChars }) {
     return 'black';
   };
 
-  const handleFace = () => {
+  const handleFaceChar = () => {
     if(card.face) {
       return <span>{card.face[0]}</span>
     }
@@ -43,13 +43,13 @@ export default function Card({ card, flipChars }) {
   const handleMiddleSymbol = () => {
     if(card.face) {
       if(card.face === "Queen") {
-        return <span className="suit">♛</span>
+        return <span className="middle-symbol">♛</span>
       }
       if(card.face === "King") {
-        return <span className="suit">♚</span>
+        return <span className="middle-symbol">♚</span>
       }
     }
-    return <span className="suit">{handleSuit()}</span>
+    return <span className="middle-symbol">{handleSuit()}</span>
   };
 
   const handleFlippingChars = () => {
@@ -58,27 +58,35 @@ export default function Card({ card, flipChars }) {
     }
   };
 
+  const handleUpperCharacters = () => {
+    return <span className="upper-characters">
+      <span className="left-character">
+        {handleCharacters()}
+      </span>
+      {handleCharacters()}
+    </span>
+  };
+
+  const handleLowerCharacters = () => {
+    return <span className={`lower-characters ${handleFlippingChars()}`}>
+      <span className="left-character">
+        {handleCharacters()}
+      </span>
+      {handleCharacters()}
+    </span>
+  };
+
+  const handleCharacters = () => {
+    return <span>
+      {handleValue()}
+      {handleFaceChar()}
+      {handleSuit()}
+    </span>
+  };
+
   return <div className={`card ${handleColor()}`}>
-    <span className="upper-characters">
-      <span className="left-character">
-        {handleValue()}
-        {handleFace()}
-        {handleSuit()}
-      </span>
-      {handleValue()}
-      {handleFace()}
-      {handleSuit()}
-    </span>
+    {handleUpperCharacters()}
     {handleMiddleSymbol()}
-    <span className={`lower-characters ${handleFlippingChars()}`}>
-      <span className="left-character">
-        {handleValue()}
-        {handleFace()}
-        {handleSuit()}
-      </span>
-      {handleValue()}
-      {handleFace()}
-      {handleSuit()}
-    </span>
+    {handleLowerCharacters()}
   </div>
 }
