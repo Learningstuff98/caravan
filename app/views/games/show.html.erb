@@ -1,13 +1,15 @@
 <div class="page-content green">
-  <h1>game show page</h1>
 
   <%= link_to "End match", game_path(@game), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-primary green" %>
 
   <br/>
 
   <h1>
-    <%= "Hosted by: #{@game.user.username}" %>
-    <br/>
     <%= "game id: #{@game.id}" %>
   </h1>
+
+  <div>
+    <%= react_component("Game", { initialGame: @game }) %>
+  </div>
+
 </div>
