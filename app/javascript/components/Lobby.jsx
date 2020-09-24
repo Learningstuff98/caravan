@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TripleDot from './TripleDot';
-import consumer from "channels/consumer"
+import consumer from "channels/consumer";
 
 export default function Lobby({ game_tokens, lobbyUrl }) {
   const [tokens, setTokens] = useState([]);
@@ -38,12 +38,6 @@ export default function Lobby({ game_tokens, lobbyUrl }) {
     });
   };
 
-  const handleTripleDot = () => {
-    return <TripleDot
-      message="Waiting for someone to host a match"
-    />
-  };
-
   if(tokens.length > 0) {
     return <div>
       {renderGameLinks()}
@@ -51,6 +45,6 @@ export default function Lobby({ game_tokens, lobbyUrl }) {
   }
 
   return <h4>
-    {handleTripleDot()}
+    <TripleDot message="Waiting for someone to host a match" />
   </h4>
 }
