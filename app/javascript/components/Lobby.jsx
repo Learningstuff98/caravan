@@ -16,12 +16,12 @@ export default function Lobby({ game_tokens, lobbyUrl }) {
     });
   };
 
-  const getOnlyRoot = (lobbyUrl) => {
+  const getOnlyRoot = () => {
     return lobbyUrl.replace('lobby', '');
   };
 
   const buildUrl = (token) => {
-    return `${getOnlyRoot(lobbyUrl)}games/${token.game_id}`;
+    return `${getOnlyRoot()}games/${token.game_id}`;
   };
 
   const buildLink = (token) => {
@@ -39,9 +39,7 @@ export default function Lobby({ game_tokens, lobbyUrl }) {
   };
 
   if(tokens.length > 0) {
-    return <div>
-      {renderGameLinks()}
-    </div>
+    return renderGameLinks();
   }
 
   return <h4>
