@@ -11,7 +11,11 @@ export default function Game({ initialGame }) {
 
   const handleWebsocketUpdates = () => {
     consumer.subscriptions.create({channel: "GameChannel"}, {
-      received(data) { setGame(data.game) }
+      received(data) {
+        if(data.game.id === game.id) {
+          setGame(data.game)
+        }
+      }
     });
   };
 
