@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TripleDot from './TripleDot';
 import consumer from "channels/consumer";
 
-export default function Lobby({ game_tokens, lobbyUrl }) {
+export default function Lobby({ game_tokens, root_url }) {
   const [tokens, setTokens] = useState([]);
 
   useEffect(() => {
@@ -16,12 +16,8 @@ export default function Lobby({ game_tokens, lobbyUrl }) {
     });
   };
 
-  const getOnlyRoot = () => {
-    return lobbyUrl.replace('lobby', '');
-  };
-
   const buildUrl = (token) => {
-    return `${getOnlyRoot()}games/${token.game_id}`;
+    return `${root_url}games/${token.game_id}`;
   };
 
   const buildLink = (token) => {
