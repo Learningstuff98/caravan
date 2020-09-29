@@ -1,5 +1,4 @@
 <div class="page-content green">
-
   <%= link_to "End match", game_path(@game), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-primary green" %>
 
   <br/>
@@ -8,8 +7,5 @@
     <%= "game id: #{@game.id}" %>
   </h1>
 
-  <div>
-    <%= react_component("Game", { initialGame: @game }) %>
-  </div>
-
+  <%= react_component("Game", { initialGame: @game, root_url: root_url, current_user: current_user }) %>
 </div>

@@ -19,6 +19,8 @@ class GamesController < ApplicationController
 
   def destroy
     @game = current_game
+    @game.update_attribute(:absent_player_id, current_user.id)
+    SendGameJob.perform_later(@game)
     @game.remove_from_lobby()
     @game.destroy
     redirect_to root_path
