@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Players from './Players';
-import consumer from "channels/consumer";
 import Notice from './Notice';
+import WebsocketUpdates from './WebsocketUpdates';
 
 export default function Game({ initialGame, root_url, current_user }) {
   const [game, setGame] = useState(initialGame);
   const [notice, setNotice] = useState(false);
 
-  useEffect(() => {
-    handleWebsocketUpdates();
-  }, []);
-
   const handleWebsocketUpdates = () => {
-    consumer.subscriptions.create({channel: "GameChannel"}, {
-      received(data) {
-        if(data.game.id === game.id) {
-          setGame(data.game);
-          if(data.game.absent_player_id) {
-            if(data.game.absent_player_id !== current_user.id) {
-              setNotice(true);
-            }
-          }
-        }
-      }
-    });
+    return <WebsocketUpdates
+      game={game}
+      current_user={current_user}
+      setGame={setGame}
+      setNotice={setNotice}
+    />
   };
 
   const renderNotice = () => {
@@ -35,6 +25,7 @@ export default function Game({ initialGame, root_url, current_user }) {
   };
 
   return <div>
+    {handleWebsocketUpdates()}
     <Players game={game}/>
     {renderNotice()}
   </div>
