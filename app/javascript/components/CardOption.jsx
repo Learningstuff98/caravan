@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 
-export default function CardOption({ card, userCards, root, getCards, flipChars }) {
+export default function CardOption({ card, userCards, root_url, getCards, flipChars }) {
   const [addedStatus, setAddedStatus] = useState("");
   const [userCard, setUserCard] = useState(null);
 
@@ -32,13 +32,13 @@ export default function CardOption({ card, userCards, root, getCards, flipChars 
   };
 
   const addCard = (card) => {
-    axios.post(`${root}cards`, card)
+    axios.post(`${root_url}cards`, card)
     .then(() => getCards())
     .catch((err) => console.log(err.response.data));
   };
 
   const deleteCard = () => {
-    axios.delete(`${root}cards/${userCard.id}`)
+    axios.delete(`${root_url}cards/${userCard.id}`)
     .then(() => getCards())
     .catch((err) => console.log(err.response.data));
   };

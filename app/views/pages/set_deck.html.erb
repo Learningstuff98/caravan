@@ -1,6 +1,5 @@
 <div class="page-content green">
   <h3>Set your deck</h3>
 
-  <% url = url_for :only_path => false, :overwrite_params => {}  %>
-  <%= react_component("SetDeck", { setDeckUrl: url, cards: current_user.cards, flipChars: true }) %>
+  <%= react_component("SetDeck", { root_url: root_url, cards: current_user.cards, flipChars: true }) %>
 </div>

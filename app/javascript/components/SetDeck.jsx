@@ -2,19 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CardOption from './CardOption';
 
-export default function SetDeck({ setDeckUrl, cards, flipChars }) {
+export default function SetDeck({ root_url, cards, flipChars }) {
   const [userCards, setUserCards] = useState([]);
 
   useEffect(() => {
     setUserCards(cards);
   }, []);
 
-  const getOnlyRoot = (setDeckUrl) => {
-    return setDeckUrl.replace('set_deck', '');
-  };
-
   const getCards = () => {
-    axios.get(`${getOnlyRoot(setDeckUrl)}player_cards`)
+    axios.get(`${root_url}player_cards`)
     .then((res) => setUserCards(res.data))
     .catch((err) => console.log(err.response.data));
   };
@@ -23,7 +19,7 @@ export default function SetDeck({ setDeckUrl, cards, flipChars }) {
     return <CardOption
       card={card}
       userCards={userCards}
-      root={getOnlyRoot(setDeckUrl)}
+      root_url={root_url}
       getCards={getCards}
       flipChars={flipChars}
     />
