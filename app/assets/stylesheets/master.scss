@@ -117,79 +117,16 @@ body {
   max-width: 300px;
 }
 
-.card {
-  height: 200px;
-  width: 130px;
-  border-radius: 10px;
-  background-color: white;
-}
-
 .set-deck-card-placement {
   display: inline-block;
   margin-top: 15px;
 }
 
-.black {
-  color: black;
-}
-
-.red {
-  color: rgb(177, 5, 5);
-}
-
-.upper-characters {
-  margin-top: 5px;
-  font-size: 23px;
-}
-
-.lower-characters {
-  margin-top: 35px;
-  font-size: 23px;
-}
-
-.ten {
-  font-size: 20px;
-}
-
-.flipChars {
-  transform: scale(-1, -1);
-  -moz-transform: scale(-1, -1);
-  -webkit-transform: scale(-1, -1);
-  -o-transform: scale(-1, -1);
-  -ms-transform: scale(-1, -1);
-  transform: scale(-1, -1);
-}
-
-.left-character {
-  margin-right: 35px;
-}
-
-.middle-symbol {
-  font-size: 70px;
-  margin-top: 10px;
-}
-
-.card-back-corners {
-  font-size: 30px;
-}
-
-.card-back-corner-spacer {
-  margin-right: 60px;
-}
-
-.left-char {
-  margin-left: 10px;
-}
-
-.card-back-center {
-  font-size: 45px;
-  max-height: 38px;
-}
-
-.card-back-bottom-chars {
-  margin-top: 28px;
-}
-
 .player-status {
   width: 300px;
+}
+
+.image-size {
+  height: 200px;
+  border-radius: 5px;
 }

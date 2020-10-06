@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 
-export default function CardOption({ card, userCards, root_url, getCards, flipChars }) {
+export default function CardOption({ card, userCards, root_url, getCards }) {
   const [addedStatus, setAddedStatus] = useState("");
   const [userCard, setUserCard] = useState(null);
 
@@ -82,7 +82,6 @@ export default function CardOption({ card, userCards, root_url, getCards, flipCh
   const renderCard = () => {
     return < Card
       card={card}
-      flipChars={flipChars}
     />
   };
 

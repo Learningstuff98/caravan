@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CardOption from './CardOption';
 
-export default function SetDeck({ root_url, cards, flipChars }) {
+export default function SetDeck({ root_url, cards }) {
   const [userCards, setUserCards] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,6 @@ export default function SetDeck({ root_url, cards, flipChars }) {
       userCards={userCards}
       root_url={root_url}
       getCards={getCards}
-      flipChars={flipChars}
     />
   };
 
