@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token, only: [:destroy]
 
   def create
     @game = current_user.games.create(player_1: current_user.username)
@@ -23,7 +24,6 @@ class GamesController < ApplicationController
     SendGameJob.perform_later(@game)
     @game.remove_from_lobby()
     @game.destroy
-    redirect_to root_path
   end
 
   private
