@@ -14,4 +14,21 @@ class User < ApplicationRecord
     where(conditions).where(["lower(username) = :value OR lower(email) = :value", {value: login.strip.downcase}]).first
   end
 
+  def set_initial_card_state(cards, game)
+    cards.each.with_index do |card, i|
+      card.update_attribute(:stage, "hand") if i < 5
+      card.update_attribute(:stage, "deck") if i >= 5
+      card.update_attribute(:game_id, game.id)
+    end
+  end
+
+  def add_cards_to_game(cards, game)
+    game.cards.concat(cards)
+  end
+
+  def prepare_cards(cards, game)
+    self.set_initial_card_state(cards, game)
+    self.add_cards_to_game(cards, game)
+  end
+
 end

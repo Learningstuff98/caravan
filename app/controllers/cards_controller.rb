@@ -3,7 +3,8 @@ class CardsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    current_user.cards.create(card_params)
+    card = current_user.cards.create(card_params)
+    card.update_attribute(:game_id, 0)
   end
 
   def destroy

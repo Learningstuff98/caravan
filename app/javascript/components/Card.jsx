@@ -129,5 +129,5 @@ export default function Card({ card }) {
     return cards[`${values[card.value]}Of${card.suit}`];
   }
 
-  return <img src={handleImage()} className="image-size"></img>
+  return <img src={handleImage()} className="image-size cursor"></img>
 }

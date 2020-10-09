@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
   def show
     @game = current_game
+    current_user.prepare_cards(current_user.cards, @game)
     if current_user != @game.user && !@game.player_2
       @game.update_attribute(:player_2, current_user.username)
       SendGameJob.perform_later(@game)
