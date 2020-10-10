@@ -2,20 +2,32 @@ import React from 'react';
 import Card from './Card';
 import CardBack from './CardBack';
 
-export default function PlayerOneHand({ playerOneHand, isPlayerOne }) {
+export default function PlayerOneHand({ cards, isPlayerOne, belongsToPlayerOne }) {
 
-  const showOrHideCard = (card) => {
+  const getPlayerOneHandCards = () => {
+    return cards.filter((card) => {
+      if(belongsToPlayerOne(card) && card.stage === 'hand') {
+        return card;
+      }
+    });
+  };
+
+  const showFrontOrBack = (card) => {
     if(isPlayerOne()) {
-      return <span key={`${card.value}${card.suit}`}>
-        <Card card={card} />
-      </span>
+      return <Card card={card}/>
     }
     return <CardBack/>
   };
 
-  return playerOneHand.map((card) => {
-    return <span className="hand-card">
-      {showOrHideCard(card)}
-    </span>
-  });
+  const handleCards = () => {
+    return getPlayerOneHandCards().map((card) => {
+      return <span className="hand-card">
+        {showFrontOrBack(card)}
+      </span>
+    });
+  };
+
+  return <span>
+    {handleCards()}
+  </span>
 }
