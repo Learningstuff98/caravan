@@ -2,11 +2,11 @@ import React from 'react';
 import Card from './Card';
 import CardBack from './CardBack';
 
-export default function PlayerTwoHand({ cards, isPlayerOne, belongsToPlayerOne }) {
+export default function PlayerTwoHand({ cards, isPlayerOne, belongsToPlayerOne, isHandCard }) {
 
   const getPlayerTwoHandCards = () => {
     return cards.filter((card) => {
-      if(!belongsToPlayerOne(card) && card.stage === 'hand') {
+      if(!belongsToPlayerOne(card) && isHandCard(card)) {
         return card;
       }
     });

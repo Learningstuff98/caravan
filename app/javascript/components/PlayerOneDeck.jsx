@@ -1,11 +1,11 @@
 import React from 'react';
 import CardBack from './CardBack';
 
-export default function PlayerOneDeck({ cards, belongsToPlayerOne }) {
+export default function PlayerOneDeck({ cards, belongsToPlayerOne, isDeckCard }) {
 
   const playerOneDeckCardCount = () => {
     return cards.filter((card) => {
-      if(belongsToPlayerOne(card) && card.stage === 'deck') {
+      if(belongsToPlayerOne(card) && isDeckCard(card)) {
         return card;
       }
     }).length;

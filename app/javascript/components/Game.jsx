@@ -21,6 +21,14 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return card.user_id === game.user_id;
   };
 
+  const isDeckCard = (card) => {
+    return card.stage === 'deck';
+  };
+
+  const isHandCard = (card) => {
+    return card.stage === 'hand';
+  };
+
   const handleWebsocketUpdates = () => {
     return <WebsocketUpdates
       game={game}
@@ -55,6 +63,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return <PlayerOneDeck
       cards={cards}
       belongsToPlayerOne={belongsToPlayerOne}
+      isDeckCard={isDeckCard}
     />
   };
 
@@ -62,6 +71,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return <PlayerTwoDeck
       cards={cards}
       belongsToPlayerOne={belongsToPlayerOne}
+      isDeckCard={isDeckCard}
     />
   };
 
@@ -70,6 +80,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       isPlayerOne={isPlayerOne}
       cards={cards}
       belongsToPlayerOne={belongsToPlayerOne}
+      isHandCard={isHandCard}
     />
   };
 
@@ -78,6 +89,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       isPlayerOne={isPlayerOne}
       cards={cards}
       belongsToPlayerOne={belongsToPlayerOne}
+      isHandCard={isHandCard}
     />
   };
 
