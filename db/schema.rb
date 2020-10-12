@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_013603) do
+ActiveRecord::Schema.define(version: 2020_10_12_211259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_013603) do
     t.integer "value"
     t.string "stage", default: "deck"
     t.integer "game_id"
+    t.index ["game_id"], name: "index_cards_on_game_id"
     t.index ["user_id"], name: "index_cards_on_user_id"
   end
 
