@@ -3,10 +3,9 @@ import axios from "axios";
 import Players from './Players';
 import Notice from './Notice';
 import WebsocketUpdates from './WebsocketUpdates';
-import PlayerTwoDeck from './PlayerTwoDeck';
-import PlayerOneDeck from './PlayerOneDeck';
 import PlayerTwoHand from './PlayerTwoHand';
 import PlayerOneHand from './PlayerOneHand';
+import Deck from './Deck';
 
 export default function Game({ initialGame, root_url, current_user, initialCards }) {
   const [game, setGame] = useState(initialGame);
@@ -19,10 +18,6 @@ export default function Game({ initialGame, root_url, current_user, initialCards
 
   const belongsToPlayerOne = (card) => {
     return card.user_id === game.user_id;
-  };
-
-  const isDeckCard = (card) => {
-    return card.stage === 'deck';
   };
 
   const isHandCard = (card) => {
@@ -60,18 +55,18 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   };
 
   const renderPlayerOneDeck = () => {
-    return <PlayerOneDeck
+    return <Deck
       cards={cards}
+      forPlayerOne={true}
       belongsToPlayerOne={belongsToPlayerOne}
-      isDeckCard={isDeckCard}
     />
   };
 
   const renderPlayerTwoDeck = () => {
-    return <PlayerTwoDeck
+    return <Deck
       cards={cards}
+      forPlayerOne={false}
       belongsToPlayerOne={belongsToPlayerOne}
-      isDeckCard={isDeckCard}
     />
   };
 
