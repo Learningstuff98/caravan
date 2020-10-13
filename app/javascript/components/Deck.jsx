@@ -1,18 +1,11 @@
 import React from 'react';
 import CardBack from './CardBack';
 
-export default function Deck({ cards, forPlayerOne, belongsToPlayerOne }) {
-
-  const handleSorting = (card) => {
-    if(forPlayerOne) {
-      return belongsToPlayerOne(card);
-    }
-    return !belongsToPlayerOne(card);
-  };
+export default function Deck({ cards, forPlayerOne, determinOwnership }) {
 
   const deckCardCount = () => {
     return cards.filter((card) => {
-      if(handleSorting(card) && card.stage === 'deck') {
+      if(card.stage === 'deck' && determinOwnership(card, forPlayerOne)) {
         return card;
       }
     }).length;

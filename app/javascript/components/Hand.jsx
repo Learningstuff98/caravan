@@ -2,18 +2,11 @@ import React from 'react';
 import Card from './Card';
 import CardBack from './CardBack';
 
-export default function Hand({ cards, belongsToPlayerOne, forPlayerOne, game, current_user }) {
-
-  const handleSorting = (card) => {
-    if(forPlayerOne) {
-      return belongsToPlayerOne(card);
-    }
-    return !belongsToPlayerOne(card);
-  };
+export default function Hand({ cards, forPlayerOne, game, current_user, determinOwnership }) {
 
   const getHandCards = () => {
     return cards.filter((card) => {
-      if(handleSorting(card) && card.stage === 'hand') {
+      if(card.stage === 'hand' && determinOwnership(card, forPlayerOne)) {
         return card;
       }
     });
@@ -40,15 +33,9 @@ export default function Hand({ cards, belongsToPlayerOne, forPlayerOne, game, cu
     return displayForPlayerTwoHand(card);
   };
 
-  const handleCards = () => {
-    return getHandCards().map((card) => {
-      return <span className="hand-card">
-        {showFrontOrBack(card)}
-      </span>
-    });
-  };
-
-  return <span>
-    {handleCards()}
-  </span>
+  return getHandCards().map((card) => {
+    return <span className="hand-card">
+      {showFrontOrBack(card)}
+    </span>
+  });
 }

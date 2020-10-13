@@ -36,11 +36,19 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return card.user_id === game.user_id;
   };
 
+  const determinOwnership = (card, forPlayerOne) => {
+    if(forPlayerOne) {
+      return belongsToPlayerOne(card);
+    }
+    return !belongsToPlayerOne(card);
+  };
+
   const renderPlayerOneDeck = () => {
     return <Deck
       cards={cards}
       forPlayerOne={true}
       belongsToPlayerOne={belongsToPlayerOne}
+      determinOwnership={determinOwnership}
     />
   };
 
@@ -48,6 +56,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return <Deck
       cards={cards}
       belongsToPlayerOne={belongsToPlayerOne}
+      determinOwnership={determinOwnership}
     />
   };
 
@@ -58,6 +67,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       current_user={current_user}
       game={game}
       belongsToPlayerOne={belongsToPlayerOne}
+      determinOwnership={determinOwnership}
     />
   };
 
@@ -67,6 +77,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       current_user={current_user}
       game={game}
       belongsToPlayerOne={belongsToPlayerOne}
+      determinOwnership={determinOwnership}
     />
   };
 
