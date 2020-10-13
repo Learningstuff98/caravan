@@ -3,35 +3,13 @@ import axios from "axios";
 import Players from './Players';
 import Notice from './Notice';
 import WebsocketUpdates from './WebsocketUpdates';
-import PlayerTwoHand from './PlayerTwoHand';
-import PlayerOneHand from './PlayerOneHand';
+import Hand from './Hand';
 import Deck from './Deck';
 
 export default function Game({ initialGame, root_url, current_user, initialCards }) {
   const [game, setGame] = useState(initialGame);
   const [cards, setCards] = useState(initialCards);
   const [notice, setNotice] = useState(false);
-
-  const isPlayerOne = () => {
-    return current_user.id === game.user_id;
-  };
-
-  const belongsToPlayerOne = (card) => {
-    return card.user_id === game.user_id;
-  };
-
-  const isHandCard = (card) => {
-    return card.stage === 'hand';
-  };
-
-  const handleWebsocketUpdates = () => {
-    return <WebsocketUpdates
-      game={game}
-      current_user={current_user}
-      setGame={setGame}
-      setNotice={setNotice}
-    />
-  };
 
   const handleNotice = () => {
     if(notice) {
@@ -54,6 +32,10 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     }
   };
 
+  const belongsToPlayerOne = (card) => {
+    return card.user_id === game.user_id;
+  };
+
   const renderPlayerOneDeck = () => {
     return <Deck
       cards={cards}
@@ -65,26 +47,35 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const renderPlayerTwoDeck = () => {
     return <Deck
       cards={cards}
-      forPlayerOne={false}
       belongsToPlayerOne={belongsToPlayerOne}
     />
   };
 
   const renderPlayerOneHand = () => {
-    return <PlayerOneHand
-      isPlayerOne={isPlayerOne}
+    return <Hand
       cards={cards}
+      forPlayerOne={true}
+      current_user={current_user}
+      game={game}
       belongsToPlayerOne={belongsToPlayerOne}
-      isHandCard={isHandCard}
     />
   };
 
   const renderPlayerTwoHand = () => {
-    return <PlayerTwoHand
-      isPlayerOne={isPlayerOne}
+    return <Hand
       cards={cards}
+      current_user={current_user}
+      game={game}
       belongsToPlayerOne={belongsToPlayerOne}
-      isHandCard={isHandCard}
+    />
+  };
+
+  const handleWebsocketUpdates = () => {
+    return <WebsocketUpdates
+      game={game}
+      current_user={current_user}
+      setGame={setGame}
+      setNotice={setNotice}
     />
   };
 
