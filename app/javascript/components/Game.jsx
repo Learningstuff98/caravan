@@ -13,9 +13,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
 
   const handleNotice = () => {
     if(notice) {
-      return <Notice
-        root_url={root_url}
-      />
+      return <Notice root_url={root_url}/>
     }
   };
 
@@ -87,6 +85,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       current_user={current_user}
       setGame={setGame}
       setNotice={setNotice}
+      setCards={setCards}
     />
   };
 
