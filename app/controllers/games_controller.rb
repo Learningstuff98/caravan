@@ -12,10 +12,7 @@ class GamesController < ApplicationController
   def show
     @game = current_game
     current_user.prepare_cards(current_user.cards, @game)
-    if current_user != @game.user && !@game.player_2
-      @game.update_attribute(:player_2, current_user.username)
-      @game.remove_from_lobby()
-    end
+    @game.handle_player_2(current_user)
     SendGameAndCardsJob.perform_later(@game)
   end
 

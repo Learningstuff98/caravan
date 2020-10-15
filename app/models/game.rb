@@ -8,4 +8,11 @@ class Game < ApplicationRecord
     SendTokenJob.perform_later(Array(GameToken.all))
   end
 
+  def handle_player_2(current_user)
+    if current_user != self.user && !self.player_2
+      self.update_attribute(:player_2, current_user.username)
+      self.remove_from_lobby()
+    end
+  end
+
 end
