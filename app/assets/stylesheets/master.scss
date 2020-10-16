@@ -143,10 +143,10 @@ body {
 }
 
 .track {
-  border: 2px solid;
-  border-color: #00C122;
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 250px;
+  background-color: rgba(39, 34, 36, 0.9);
   margin: 20px;
+  border-radius: 10px;
   display:inline-block; // allows for horizonatl stacking
 }
