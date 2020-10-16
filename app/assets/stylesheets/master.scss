@@ -141,3 +141,12 @@ body {
 .hand-card {
   margin: 10px;
 }
+
+.track {
+  border: 2px solid;
+  border-color: #00C122;
+  height: 200px;
+  width: 200px;
+  margin: 20px;
+  display:inline-block; // allows for horizonatl stacking
+}

@@ -5,6 +5,7 @@ import Notice from './Notice';
 import WebsocketUpdates from './WebsocketUpdates';
 import Hand from './Hand';
 import Deck from './Deck';
+import Tracks from './Tracks';
 
 export default function Game({ initialGame, root_url, current_user, initialCards }) {
   const [game, setGame] = useState(initialGame);
@@ -89,6 +90,12 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     />
   };
 
+  const renderTracks = () => {
+    return <Tracks
+      cards={cards}
+    />
+  };
+
   return <div>
     {handleWebsocketUpdates()}
     {handleEndGameButton()}
@@ -98,6 +105,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       {renderPlayerTwoDeck()}
       <br/><br/>
       {renderPlayerTwoHand()}
+      <br/><br/>
+      {renderTracks()}
       <br/><br/>
       {renderPlayerOneHand()}
       <br/><br/><br/><br/>
