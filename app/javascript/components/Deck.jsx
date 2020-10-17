@@ -14,7 +14,9 @@ export default function Deck({ cards, forPlayerOne, determinOwnership }) {
   if(deckCardCount() > 0) {
     return <div>
       <CardBack/>
-      <h2>{deckCardCount()}</h2>
+      <h2 className="deck-card-count">
+        {deckCardCount()}
+      </h2>
     </div>
   }
   return null;

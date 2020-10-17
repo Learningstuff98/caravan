@@ -44,43 +44,51 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   };
 
   const renderPlayerOneDeck = () => {
-    return <Deck
-      cards={cards}
-      forPlayerOne={true}
-      belongsToPlayerOne={belongsToPlayerOne}
-      determinOwnership={determinOwnership}
-    />
+    return <div className="deck">
+      <Deck
+        cards={cards}
+        forPlayerOne={true}
+        belongsToPlayerOne={belongsToPlayerOne}
+        determinOwnership={determinOwnership}
+      />
+    </div>
   };
 
   const renderPlayerTwoDeck = () => {
-    return <Deck
-      cards={cards}
-      belongsToPlayerOne={belongsToPlayerOne}
-      determinOwnership={determinOwnership}
-    />
+    return <div className="deck">
+      <Deck
+        cards={cards}
+        belongsToPlayerOne={belongsToPlayerOne}
+        determinOwnership={determinOwnership}
+      />
+    </div>
   };
 
   const renderPlayerOneHand = () => {
-    return <Hand
-      cards={cards}
-      forPlayerOne={true}
-      current_user={current_user}
-      game={game}
-      belongsToPlayerOne={belongsToPlayerOne}
-      determinOwnership={determinOwnership}
-      setSelectedCard={setSelectedCard}
-    />
+    return <div className="hand player-one-hand">
+      <Hand
+        cards={cards}
+        forPlayerOne={true}
+        current_user={current_user}
+        game={game}
+        belongsToPlayerOne={belongsToPlayerOne}
+        determinOwnership={determinOwnership}
+        setSelectedCard={setSelectedCard}
+      />
+    </div>
   };
 
   const renderPlayerTwoHand = () => {
-    return <Hand
-      cards={cards}
-      current_user={current_user}
-      game={game}
-      belongsToPlayerOne={belongsToPlayerOne}
-      determinOwnership={determinOwnership}
-      setSelectedCard={setSelectedCard}
-    />
+    return <div className="hand player-two-hand">
+      <Hand
+        cards={cards}
+        current_user={current_user}
+        game={game}
+        belongsToPlayerOne={belongsToPlayerOne}
+        determinOwnership={determinOwnership}
+        setSelectedCard={setSelectedCard}
+      />
+    </div>
   };
 
   const handleWebsocketUpdates = () => {
@@ -106,16 +114,10 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     {handleEndGameButton()}
     {handleNotice()}
     <Players game={game}/>
-    <div className="text-center">
-      {renderPlayerTwoDeck()}
-      <br/><br/>
-      {renderPlayerTwoHand()}
-      <br/><br/>
-      {renderTracks()}
-      <br/><br/>
-      {renderPlayerOneHand()}
-      <br/><br/><br/><br/>
-      {renderPlayerOneDeck()}
-    </div>
+    {renderPlayerTwoDeck()}
+    {renderPlayerTwoHand()}
+    {renderTracks()}
+    {renderPlayerOneHand()}
+    {renderPlayerOneDeck()}
   </div>
 }

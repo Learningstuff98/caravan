@@ -143,11 +143,37 @@ body {
 }
 
 .track {
-  // min-height: 300px;
-  // min-width: 210px;
-  // background-color: rgba(39, 34, 36, 0.9);
-  // margin: 20px;
-  // padding: 20px;
-  // border-radius: 10px;
+  min-height: 300px;
+  min-width: 210px;
+  background-color: rgba(39, 34, 36, 0.9);
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
   display:inline-block; // allows for horizonatl stacking
+}
+
+.tracks {
+  display: flex; // keeps the tracks from shifting around when placing cards on them
+}
+
+.deck-card-count {
+  margin-left: 55px;
+}
+
+.deck {
+  margin-left: 1110px;
+}
+
+.hand {
+  margin-left: 800px;
+  position: absolute;
+  z-index: 1;
+}
+
+.player-two-hand {
+  margin-top: 50px;
+}
+
+.player-one-hand {
+  margin-top: -290px;
 }
