@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 import CardBack from './CardBack';
 
-export default function Hand({ cards, forPlayerOne, game, current_user, determinOwnership }) {
+export default function Hand({ cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard }) {
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -14,14 +14,18 @@ export default function Hand({ cards, forPlayerOne, game, current_user, determin
 
   const displayForPlayerOneHand = (card) => {
     if(game.user_id === current_user.id) {
-      return <Card card={card}/>
+      return <span onClick={() => setSelectedCard(card)}>
+        <Card card={card}/>
+      </span>
     }
     return <CardBack/>
   };
 
   const displayForPlayerTwoHand = (card) => {
     if(game.user_id !== current_user.id) {
-      return <Card card={card}/>
+      return <span onClick={() => setSelectedCard(card)}>
+        <Card card={card}/>
+      </span>
     }
     return <CardBack/>
   };

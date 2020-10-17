@@ -12,10 +12,16 @@ class CardsController < ApplicationController
     card.destroy
   end
 
+  def update
+    card = Card.find(params[:id])
+    card.update_attributes(card_params)
+    SendGameAndCardsJob.perform_later(card.game)
+  end
+
   private
 
   def card_params
-    params.require(:card).permit(:face, :suit, :value)
+    params.require(:card).permit(:face, :suit, :value, :stage)
   end
 
 end

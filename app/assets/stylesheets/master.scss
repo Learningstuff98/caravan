@@ -143,10 +143,11 @@ body {
 }
 
 .track {
-  height: 300px;
-  width: 250px;
-  background-color: rgba(39, 34, 36, 0.9);
-  margin: 20px;
-  border-radius: 10px;
+  // min-height: 300px;
+  // min-width: 210px;
+  // background-color: rgba(39, 34, 36, 0.9);
+  // margin: 20px;
+  // padding: 20px;
+  // border-radius: 10px;
   display:inline-block; // allows for horizonatl stacking
 }

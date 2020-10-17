@@ -11,6 +11,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const [game, setGame] = useState(initialGame);
   const [cards, setCards] = useState(initialCards);
   const [notice, setNotice] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleNotice = () => {
     if(notice) {
@@ -67,6 +68,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       game={game}
       belongsToPlayerOne={belongsToPlayerOne}
       determinOwnership={determinOwnership}
+      setSelectedCard={setSelectedCard}
     />
   };
 
@@ -77,6 +79,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       game={game}
       belongsToPlayerOne={belongsToPlayerOne}
       determinOwnership={determinOwnership}
+      setSelectedCard={setSelectedCard}
     />
   };
 
@@ -93,6 +96,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const renderTracks = () => {
     return <Tracks
       cards={cards}
+      selectedCard={selectedCard}
+      root_url={root_url}
     />
   };
 
