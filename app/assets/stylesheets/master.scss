@@ -168,6 +168,7 @@ body {
   margin-left: 800px;
   position: absolute;
   z-index: 1;
+  display: flex; // keeps hand cards from shifting around on smaller screen sizes
 }
 
 .player-two-hand {
