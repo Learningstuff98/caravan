@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 import CardBack from './CardBack';
 
-export default function Hand({ cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard }) {
+export default function Hand({ cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard }) {
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -12,10 +12,19 @@ export default function Hand({ cards, forPlayerOne, game, current_user, determin
     });
   };
 
+  const handleSelectedNotice = (card) => {
+    if(selectedCard && card.id === selectedCard.id) {
+      return <h5 className="selected-notice text-center">
+        Selected
+      </h5>
+    }
+  };
+
   const displayForPlayerOneHand = (card) => {
     if(game.user_id === current_user.id) {
       return <span onClick={() => setSelectedCard(card)}>
         <Card card={card}/>
+        {handleSelectedNotice(card)}
       </span>
     }
     return <CardBack/>
@@ -25,6 +34,7 @@ export default function Hand({ cards, forPlayerOne, game, current_user, determin
     if(game.user_id !== current_user.id) {
       return <span onClick={() => setSelectedCard(card)}>
         <Card card={card}/>
+        {handleSelectedNotice(card)}
       </span>
     }
     return <CardBack/>

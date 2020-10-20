@@ -2,13 +2,13 @@ import React from 'react';
 import axios from "axios";
 import Card from './Card';
 
-export default function Track({ trackNumber, cards, selectedCard, root_url }) {
+export default function Track({ trackNumber, cards, selectedCard, root_url, setSelectedCard }) {
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
       stage: `track${trackNumber}`
     })
-    .then(() => console.log("no crash"))
+    .then(() => setSelectedCard(null))
     .catch((err) => console.log(err.response.data));
   };
 

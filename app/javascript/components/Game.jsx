@@ -74,6 +74,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         belongsToPlayerOne={belongsToPlayerOne}
         determinOwnership={determinOwnership}
         setSelectedCard={setSelectedCard}
+        selectedCard={selectedCard}
       />
     </div>
   };
@@ -87,6 +88,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         belongsToPlayerOne={belongsToPlayerOne}
         determinOwnership={determinOwnership}
         setSelectedCard={setSelectedCard}
+        selectedCard={selectedCard}
       />
     </div>
   };
@@ -106,6 +108,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       cards={cards}
       selectedCard={selectedCard}
       root_url={root_url}
+      setSelectedCard={setSelectedCard}
     />
   };
 

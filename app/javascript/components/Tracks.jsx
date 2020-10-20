@@ -1,7 +1,7 @@
 import React from 'react';
 import Track from './Track';
 
-export default function Tracks({ cards, selectedCard, root_url }) {
+export default function Tracks({ cards, selectedCard, root_url, setSelectedCard }) {
 
   const renderTracks = (trackNumbers) => {
     return trackNumbers.map((trackNumber) => {
@@ -11,6 +11,7 @@ export default function Tracks({ cards, selectedCard, root_url }) {
           cards={cards}
           selectedCard={selectedCard}
           root_url={root_url}
+          setSelectedCard={setSelectedCard}
         />
       </span>
     });
