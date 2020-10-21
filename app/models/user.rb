@@ -31,4 +31,13 @@ class User < ApplicationRecord
     self.add_cards_to_game(cards, game)
   end
 
+  def draw_card
+    self.cards.each do |card|
+      if card.stage == 'deck'
+        card.update_attribute(:stage, 'hand')
+        break
+      end
+    end
+  end
+
 end

@@ -19,5 +19,8 @@ export default function Deck({ cards, forPlayerOne, determinOwnership }) {
       </h2>
     </div>
   }
-  return null;
+
+  return <h4>
+    This deck is out of cards
+  </h4>
 }

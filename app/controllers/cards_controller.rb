@@ -15,6 +15,7 @@ class CardsController < ApplicationController
   def update
     card = Card.find(params[:id])
     card.update_attributes(card_params)
+    current_user.draw_card
     SendGameAndCardsJob.perform_later(card.game)
   end
 
