@@ -11,16 +11,10 @@ export default function Deck({ cards, forPlayerOne, determinOwnership }) {
     }).length;
   };
 
-  if(deckCardCount() > 0) {
-    return <div>
-      <CardBack/>
-      <h2 className="deck-card-count">
-        {deckCardCount()}
-      </h2>
-    </div>
-  }
-
-  return <h4>
-    This deck is out of cards
-  </h4>
+  return <div>
+    <CardBack/>
+    <h2 className="deck-card-count">
+      {deckCardCount()}
+    </h2>
+  </div>
 }

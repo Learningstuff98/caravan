@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 import Card from './Card';
 
-export default function Track({ trackNumber, cards, selectedCard, root_url, setSelectedCard }) {
+export default function Track({ trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne }) {
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
@@ -18,11 +18,22 @@ export default function Track({ trackNumber, cards, selectedCard, root_url, setS
     }
   };
 
+  const handleStackDirection = () => {
+    if(forPlayerOne) {
+      return "downward";
+    }
+    return "upward";
+  };
+  
   const renderCards = () => {
     let trackCards = [];
       for(const card of cards) {
         if(card.stage === `track${trackNumber}`) {
-          trackCards.push(<div><Card card={card}/></div>);
+          trackCards.push(
+            <div className={`stack-${handleStackDirection()}`}>
+              <Card card={card}/>
+            </div>
+          );
         }
       }
     return trackCards;

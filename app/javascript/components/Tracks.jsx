@@ -3,7 +3,7 @@ import Track from './Track';
 
 export default function Tracks({ cards, selectedCard, root_url, setSelectedCard }) {
 
-  const renderTracks = (trackNumbers) => {
+  const renderTracks = (trackNumbers, forPlayerOne) => {
     return trackNumbers.map((trackNumber) => {
       return <span>
         <Track
@@ -12,6 +12,7 @@ export default function Tracks({ cards, selectedCard, root_url, setSelectedCard 
           selectedCard={selectedCard}
           root_url={root_url}
           setSelectedCard={setSelectedCard}
+          forPlayerOne={forPlayerOne}
         />
       </span>
     });
@@ -23,7 +24,7 @@ export default function Tracks({ cards, selectedCard, root_url, setSelectedCard 
     </span>
     <br/>
     <span className="tracks">
-      {renderTracks([1, 2, 3])}
+      {renderTracks([1, 2, 3], true)}
     </span>
   </div>
 }
