@@ -145,6 +145,13 @@ body {
 .track {
   min-height: 300px;
   min-width: 210px;
+  padding: 20px;
+  display:inline-block; // allows for horizonatl stacking
+}
+
+.empty-track {
+  min-height: 230px;
+  min-width: 150px;
   background-color: rgba(39, 34, 36, 0.9);
   margin: 20px;
   padding: 20px;

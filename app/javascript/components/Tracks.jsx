@@ -20,11 +20,11 @@ export default function Tracks({ cards, selectedCard, root_url, setSelectedCard 
 
   return <div>
     <span className="tracks">
-      {renderTracks([4, 5, 6])}
+      {renderTracks([1, 2, 3])}
     </span>
     <br/>
     <span className="tracks">
-      {renderTracks([1, 2, 3], true)}
+      {renderTracks([4, 5, 6], true)}
     </span>
   </div>
 }

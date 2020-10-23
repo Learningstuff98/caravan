@@ -39,8 +39,16 @@ export default function Track({ trackNumber, cards, selectedCard, root_url, setS
     return trackCards;
   };
 
-  return <div onClick={() => handleCardMovement()} className='track text-center'>
-    {`track${trackNumber}`}
-    {renderCards()}
+  const handleTrackDisplay = () => {
+    if(renderCards().length > 0) {
+      return <div className="track">
+        {renderCards()}
+      </div>
+    }
+    return <div className="empty-track"></div>
+  };
+
+  return <div onClick={() => handleCardMovement()} className="cursor">
+    {handleTrackDisplay()}
   </div>
 }
