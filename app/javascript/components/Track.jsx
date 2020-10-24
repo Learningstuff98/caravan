@@ -6,7 +6,8 @@ export default function Track({ trackNumber, cards, selectedCard, root_url, setS
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
-      stage: `track${trackNumber}`
+      stage: `track${trackNumber}`,
+      place: getTrackCards().length
     })
     .then(() => setSelectedCard(null))
     .catch((err) => console.log(err.response.data));
@@ -24,23 +25,33 @@ export default function Track({ trackNumber, cards, selectedCard, root_url, setS
     }
     return "upward";
   };
-  
-  const renderCards = () => {
+
+  const sortByPlace = (trackCards) => {
+    return trackCards.sort((x, y) => {
+      return x.place - y.place;
+    })
+  };
+
+  const getTrackCards = () => {
     let trackCards = [];
       for(const card of cards) {
         if(card.stage === `track${trackNumber}`) {
-          trackCards.push(
-            <div className={`stack-${handleStackDirection()}`}>
-              <Card card={card}/>
-            </div>
-          );
+          trackCards.push(card);
         }
       }
-    return trackCards;
+    return sortByPlace(trackCards);
+  };
+
+  const renderCards = () => {
+    return getTrackCards().map((card) => {
+      return <div className={`stack-${handleStackDirection()}`}>
+        <Card card={card}/>
+      </div>
+    });
   };
 
   const handleTrackDisplay = () => {
-    if(renderCards().length > 0) {
+    if(getTrackCards().length > 0) {
       return <div className="track">
         {renderCards()}
       </div>
