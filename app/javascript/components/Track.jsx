@@ -33,13 +33,9 @@ export default function Track({ trackNumber, cards, selectedCard, root_url, setS
   };
 
   const getTrackCards = () => {
-    let trackCards = [];
-      for(const card of cards) {
-        if(card.stage === `track${trackNumber}`) {
-          trackCards.push(card);
-        }
-      }
-    return sortByPlace(trackCards);
+    return sortByPlace(cards.filter((card) => 
+      card.stage === `track${trackNumber}`
+    ));
   };
 
   const renderCards = () => {
