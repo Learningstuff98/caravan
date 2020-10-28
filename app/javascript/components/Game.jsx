@@ -12,6 +12,26 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const [cards, setCards] = useState(initialCards);
   const [notice, setNotice] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [tracks, setTracks] = useState({
+    track1: {
+      value: 0
+    },
+    track2: {
+      value: 0
+    },
+    track3: {
+      value: 0
+    },
+    track4: {
+      value: 0
+    },
+    track5: {
+      value: 0
+    },
+    track6: {
+      value: 0
+    }
+  });
 
   const handleNotice = () => {
     if(notice) {
@@ -109,6 +129,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       selectedCard={selectedCard}
       root_url={root_url}
       setSelectedCard={setSelectedCard}
+      tracks={tracks}
+      setTracks={setTracks}
     />
   };
 

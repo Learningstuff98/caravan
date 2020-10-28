@@ -1,7 +1,7 @@
 import React from 'react';
 import Track from './Track';
 
-export default function Tracks({ cards, selectedCard, root_url, setSelectedCard }) {
+export default function Tracks({ cards, selectedCard, root_url, setSelectedCard, tracks, setTracks }) {
 
   const renderTracks = (trackNumbers, forPlayerOne) => {
     return trackNumbers.map((trackNumber) => {
@@ -13,6 +13,8 @@ export default function Tracks({ cards, selectedCard, root_url, setSelectedCard 
           root_url={root_url}
           setSelectedCard={setSelectedCard}
           forPlayerOne={forPlayerOne}
+          tracks={tracks}
+          setTracks={setTracks}
         />
       </span>
     });

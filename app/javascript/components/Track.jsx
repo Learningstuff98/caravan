@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from "axios";
 import Card from './Card';
 
-export default function Track({ trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne }) {
+function Track(props) {
+
+  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks } = props;
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
@@ -39,23 +41,76 @@ export default function Track({ trackNumber, cards, selectedCard, root_url, setS
   };
 
   const renderCards = () => {
-    return getTrackCards().map((card) => {
-      return <div className={`stack-${handleStackDirection()}`}>
-        <Card card={card}/>
-      </div>
-    });
+    return <div className="track">
+      {getTrackCards().map((card) => {
+        return <div className={`stack-${handleStackDirection()}`}>
+          <Card card={card}/>
+        </div>
+      })}
+    </div>
+  };
+
+  const getTrackValue = () => {
+    return getTrackCards().reduce((trackValue, card) => {
+      return trackValue + card.value;
+    }, 0);
+  };
+
+  const updateTrack = () => {
+    let newTracks = {};
+    for(const number of [1, 2, 3, 4, 5, 6]) {
+      newTracks[`track${number}`] = {value: tracks[`track${number}`].value};
+    }
+    newTracks[`track${trackNumber}`].value = getTrackValue();
+    return newTracks;
+  };
+
+  const currentTrack = () => {
+    return tracks[`track${trackNumber}`];
+  };
+
+  useEffect(() => {
+    if(currentTrack().value !== updateTrack()[`track${trackNumber}`].value) {
+      setTracks(updateTrack());
+    }
+  });
+
+  const renderTrackValue = () => {
+    return <h3>{currentTrack().value}</h3>
+  };
+
+  const renderEmptyTrack = () => {
+    return <div className="empty-track"></div>
   };
 
   const handleTrackDisplay = () => {
     if(getTrackCards().length > 0) {
-      return <div className="track">
+      if(forPlayerOne) {
+        return <div className="text-center">
+          {renderTrackValue()}
+          {renderCards()}
+        </div>
+      }
+      return <div className="text-center">
         {renderCards()}
+        {renderTrackValue()}
       </div>
     }
-    return <div className="empty-track"></div>
+    if(forPlayerOne) {
+      return <div className="text-center">
+        {renderTrackValue()}
+        {renderEmptyTrack()}
+      </div>
+    }
+    return <div className="text-center">
+      {renderEmptyTrack()}
+      {renderTrackValue()}
+    </div>
   };
 
   return <div onClick={() => handleCardMovement()} className="cursor">
     {handleTrackDisplay()}
   </div>
 }
+
+export default Track;
