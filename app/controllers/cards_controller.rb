@@ -22,7 +22,7 @@ class CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:face, :suit, :value, :stage, :place)
+    params.require(:card).permit(:face, :suit, :value, :stage, :place, :recipient_card_id)
   end
 
 end

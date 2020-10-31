@@ -3,7 +3,6 @@ import axios from "axios";
 import Card from './Card';
 
 function Track(props) {
-
   const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks } = props;
 
   const moveCard = () => {
@@ -16,7 +15,7 @@ function Track(props) {
   };
 
   const handleCardMovement = () => {
-    if(selectedCard) {
+    if(selectedCard && !selectedCard.face) {
       moveCard();
     }
   };
@@ -40,11 +39,48 @@ function Track(props) {
     ));
   };
 
+  const moveKingCard = (card) => {
+    if(selectedCard.face === "King") {
+      axios.patch(`${root_url}cards/${selectedCard.id}`, {
+        stage: `track${trackNumber}`,
+        value: card.value,
+        recipient_card_id: card.id
+      })
+      .then(() => setSelectedCard(null))
+      .catch((err) => console.log(err.response.data));
+    }
+  };
+
+  const getKings = (recipientCard) => {
+    return getTrackCards().filter((card) =>
+      card.face === "King" && recipientCard.id === card.recipient_card_id
+    );
+  };
+
+  const renderKings = (recipientCard) => {
+    return getKings(recipientCard).map((king) => {
+      return <span className="king">
+        <Card card={king}/>
+      </span>
+    });
+  };
+
+  const clickableNumberCard = (card) => { // get a better name
+    if(!card.face) {
+      return <div>
+        <span onClick={() => moveKingCard(card)} className="cursor">
+          <Card card={card}/>
+        </span>
+        {renderKings(card)}
+      </div>
+    }
+  };
+
   const renderCards = () => {
     return <div className="track">
       {getTrackCards().map((card) => {
         return <div className={`stack-${handleStackDirection()}`}>
-          <Card card={card}/>
+          {clickableNumberCard(card)}
         </div>
       })}
     </div>
@@ -83,32 +119,42 @@ function Track(props) {
     return <div className="empty-track"></div>
   };
 
+  const placeCardButton = () => {
+    return <h5 onClick={() => handleCardMovement()} className="box-small text-center cursor">
+      Place Card
+    </h5>
+  };
+
   const handleTrackDisplay = () => {
     if(getTrackCards().length > 0) {
       if(forPlayerOne) {
-        return <div className="text-center">
+        return <div>
           {renderTrackValue()}
+          {placeCardButton()}
           {renderCards()}
         </div>
       }
-      return <div className="text-center">
+      return <div>
         {renderCards()}
+        {placeCardButton()}
         {renderTrackValue()}
       </div>
     }
     if(forPlayerOne) {
-      return <div className="text-center">
+      return <div>
         {renderTrackValue()}
+        {placeCardButton()}
         {renderEmptyTrack()}
       </div>
     }
-    return <div className="text-center">
+    return <div>
       {renderEmptyTrack()}
+      {placeCardButton()}
       {renderTrackValue()}
     </div>
   };
 
-  return <div onClick={() => handleCardMovement()} className="cursor">
+  return <div>
     {handleTrackDisplay()}
   </div>
 }

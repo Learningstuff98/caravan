@@ -14,7 +14,7 @@ export default function Hand({ cards, forPlayerOne, game, current_user, determin
 
   const handleSelectedNotice = (card) => {
     if(selectedCard && card.id === selectedCard.id) {
-      return <h5 className="selected-notice text-center">
+      return <h5 className="box-small text-center">
         Selected
       </h5>
     }
