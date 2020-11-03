@@ -65,7 +65,7 @@ function Track(props) {
     });
   };
 
-  const clickableNumberCard = (card) => { // get a better name
+  const numberCard = (card) => {
     if(!card.face) {
       return <div>
         <span onClick={() => moveKingCard(card)} className="cursor">
@@ -80,7 +80,7 @@ function Track(props) {
     return <div className="track">
       {getTrackCards().map((card) => {
         return <div className={`stack-${handleStackDirection()}`}>
-          {clickableNumberCard(card)}
+          {numberCard(card)}
         </div>
       })}
     </div>
