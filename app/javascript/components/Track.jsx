@@ -67,7 +67,7 @@ function Track(props) {
 
   const numberCard = (card) => {
     if(!card.face) {
-      return <div>
+      return <div className={`stack-${handleStackDirection()}`}>
         <span onClick={() => moveKingCard(card)} className="cursor">
           <Card card={card}/>
         </span>
@@ -79,9 +79,7 @@ function Track(props) {
   const renderCards = () => {
     return <div className="track">
       {getTrackCards().map((card) => {
-        return <div className={`stack-${handleStackDirection()}`}>
-          {numberCard(card)}
-        </div>
+        return numberCard(card);
       })}
     </div>
   };
