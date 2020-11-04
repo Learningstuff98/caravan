@@ -112,7 +112,9 @@ function Track(props) {
   });
 
   const renderTrackValue = () => {
-    return <h3>{currentTrack().value}</h3>
+    return <h3 className="text-center">
+      {currentTrack().value}
+    </h3>
   };
 
   const renderEmptyTrack = () => {
