@@ -95,6 +95,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         determinOwnership={determinOwnership}
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
+        root_url={root_url}
       />
     </div>
   };
@@ -109,6 +110,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         determinOwnership={determinOwnership}
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
+        root_url={root_url}
       />
     </div>
   };

@@ -1,8 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import Card from './Card';
 import CardBack from './CardBack';
 
-export default function Hand({ cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard }) {
+function Hand(props) {
+
+  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, root_url } = props;
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -20,22 +23,39 @@ export default function Hand({ cards, forPlayerOne, game, current_user, determin
     }
   };
 
-  const displayForPlayerOneHand = (card) => {
-    if(game.user_id === current_user.id) {
-      return <span onClick={() => setSelectedCard(card)}>
+  const discardCard = (card) => {
+    axios.patch(`${root_url}cards/${card.id}`, {
+      stage: "out"
+    })
+    .catch((err) => console.log(err.response.data));
+  };
+
+  const discardButton = (card) => {
+    return <h5 className="box-small text-center cursor" onClick={() => discardCard(card)}>
+      Discard
+    </h5>
+  };
+
+  const renderHandCard = (card) => {
+    return <div>
+      <div onClick={() => setSelectedCard(card)}>
         <Card card={card}/>
         {handleSelectedNotice(card)}
-      </span>
+      </div>
+      {discardButton(card)}
+    </div>
+  };
+
+  const displayForPlayerOneHand = (card) => {
+    if(game.user_id === current_user.id) {
+      return renderHandCard(card);
     }
     return <CardBack/>
   };
 
   const displayForPlayerTwoHand = (card) => {
     if(game.user_id !== current_user.id) {
-      return <span onClick={() => setSelectedCard(card)}>
-        <Card card={card}/>
-        {handleSelectedNotice(card)}
-      </span>
+      return renderHandCard(card);
     }
     return <CardBack/>
   };
@@ -53,3 +73,5 @@ export default function Hand({ cards, forPlayerOne, game, current_user, determin
     </span>
   });
 }
+
+export default Hand;
