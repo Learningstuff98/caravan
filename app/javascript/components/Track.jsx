@@ -125,7 +125,7 @@ function Track(props) {
     </h5>
   };
 
-  const confirmDiscard = () => {
+  const discardTrack = () => {
     if(confirm("Discard the cards in this track?")) {
       for(const card of getTrackCards()) {
         discardCard(card);
@@ -133,8 +133,8 @@ function Track(props) {
     }
   };
 
-  const discardButton = () => {
-    return <h5 onClick={() => confirmDiscard()} className="box-small text-center cursor">
+  const discardTrackButton = () => {
+    return <h5 onClick={() => discardTrack()} className="box-small text-center cursor">
       Discard Track
     </h5>
   };
@@ -142,12 +142,12 @@ function Track(props) {
   const handleDiscardButton = () => {
     if(forPlayerOne) {
       if(current_user.id === game.user_id) {
-        return discardButton();
+        return discardTrackButton();
       }
     }
     if(!forPlayerOne) {
       if(current_user.id !== game.user_id) {
-        return discardButton();
+        return discardTrackButton();
       }
     }
   };

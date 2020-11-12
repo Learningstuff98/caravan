@@ -32,13 +32,9 @@ class User < ApplicationRecord
   end
 
   def hand_card_count
-    count = 0
-    self.cards.each do |card|
-      if card.stage == 'hand'
-        count += 1
-      end
-    end
-    count
+    self.cards.count { |card| 
+      card.stage == 'hand' 
+    }
   end
 
   def draw_card
