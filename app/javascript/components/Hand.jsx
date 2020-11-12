@@ -5,7 +5,7 @@ import CardBack from './CardBack';
 
 function Hand(props) {
 
-  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, root_url } = props;
+  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, discardCard } = props;
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -21,13 +21,6 @@ function Hand(props) {
         Selected
       </h5>
     }
-  };
-
-  const discardCard = (card) => {
-    axios.patch(`${root_url}cards/${card.id}`, {
-      stage: "out"
-    })
-    .catch((err) => console.log(err.response.data));
   };
 
   const discardButton = (card) => {

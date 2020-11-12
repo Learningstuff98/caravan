@@ -31,6 +31,12 @@ class User < ApplicationRecord
     self.add_cards_to_game(cards, game)
   end
 
+  def hand_card_count
+    self.cards.count { |card| 
+      card.stage == 'hand' 
+    }
+  end
+
   def draw_card
     self.cards.each do |card|
       if card.stage == 'deck'

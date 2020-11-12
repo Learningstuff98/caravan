@@ -3,7 +3,7 @@ import axios from "axios";
 import Card from './Card';
 
 function Track(props) {
-  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks } = props;
+  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, discardCard } = props;
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
@@ -125,18 +125,47 @@ function Track(props) {
     </h5>
   };
 
+  const discardTrack = () => {
+    if(confirm("Discard the cards in this track?")) {
+      for(const card of getTrackCards()) {
+        discardCard(card);
+      }
+    }
+  };
+
+  const discardTrackButton = () => {
+    return <h5 onClick={() => discardTrack()} className="box-small text-center cursor">
+      Discard Track
+    </h5>
+  };
+
+  const handleDiscardButton = () => {
+    if(forPlayerOne) {
+      if(current_user.id === game.user_id) {
+        return discardTrackButton();
+      }
+    }
+    if(!forPlayerOne) {
+      if(current_user.id !== game.user_id) {
+        return discardTrackButton();
+      }
+    }
+  };
+
   const handleTrackDisplay = () => {
     if(getTrackCards().length > 0) {
       if(forPlayerOne) {
         return <div>
           {renderTrackValue()}
           {placeCardButton()}
+          {handleDiscardButton()}
           {renderCards()}
         </div>
       }
       return <div>
         {renderCards()}
         {placeCardButton()}
+        {handleDiscardButton()}
         {renderTrackValue()}
       </div>
     }
