@@ -23,8 +23,14 @@ function Hand(props) {
     }
   };
 
+  const handleDiscard = (card) => {
+    if(confirm("Discard this card?")) {
+      discardCard(card);
+    }
+  };
+
   const discardButton = (card) => {
-    return <h5 className="box-small text-center cursor" onClick={() => discardCard(card)}>
+    return <h5 className="box-small text-center cursor" onClick={() => handleDiscard(card)}>
       Discard
     </h5>
   };
