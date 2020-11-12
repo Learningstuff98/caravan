@@ -15,7 +15,9 @@ class CardsController < ApplicationController
   def update
     card = Card.find(params[:id])
     card.update_attributes(card_params)
-    current_user.draw_card
+    if current_user.hand_card_count < 5
+      current_user.draw_card
+    end
     SendGameAndCardsJob.perform_later(card.game)
   end
 

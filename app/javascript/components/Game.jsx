@@ -63,6 +63,13 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return !belongsToPlayerOne(card);
   };
 
+  const discardCard = (card) => {
+    axios.patch(`${root_url}cards/${card.id}`, {
+      stage: "out"
+    })
+    .catch((err) => console.log(err.response.data));
+  };
+
   const renderPlayerOneDeck = () => {
     return <div className="deck">
       <Deck
@@ -96,6 +103,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
         root_url={root_url}
+        discardCard={discardCard}
       />
     </div>
   };
@@ -111,6 +119,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
         root_url={root_url}
+        discardCard={discardCard}
       />
     </div>
   };
@@ -133,6 +142,9 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       setSelectedCard={setSelectedCard}
       tracks={tracks}
       setTracks={setTracks}
+      game={game}
+      current_user={current_user}
+      discardCard={discardCard}
     />
   };
 
