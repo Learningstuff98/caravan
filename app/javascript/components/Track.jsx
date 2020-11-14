@@ -143,12 +143,6 @@ function Track(props) {
     return <div className="empty-track"></div>
   };
 
-  const placeCardButton = () => {
-    return <h5 onClick={() => handleCardMovement()} className="box-small text-center cursor">
-      Place Card
-    </h5>
-  };
-
   const discardTrack = () => {
     if(confirm("Discard the cards in this track?")) {
       for(const card of getTrackCards()) {
@@ -157,21 +151,36 @@ function Track(props) {
     }
   };
 
-  const discardTrackButton = () => {
-    return <h5 onClick={() => discardTrack()} className="box-small text-center cursor">
-      Discard Track
+  const handleDiscardTrackButton = () => {
+    if(getTrackCards().length > 0) {
+      return <h5 onClick={() => discardTrack()} className="box-small text-center cursor">
+        Discard Track
+      </h5>
+    }
+  };
+
+  const placeCardButton = () => {
+    return <h5 onClick={() => handleCardMovement()} className="box-small text-center cursor">
+      Place Card
     </h5>
   };
 
-  const handleDiscardButton = () => {
+  const trackButtons = () => {
+    return <h5>
+      {placeCardButton()}
+      {handleDiscardTrackButton()}
+    </h5>
+  };
+
+  const handleTrackButtons = () => {
     if(forPlayerOne) {
       if(current_user.id === game.user_id) {
-        return discardTrackButton();
+        return trackButtons();
       }
     }
     if(!forPlayerOne) {
       if(current_user.id !== game.user_id) {
-        return discardTrackButton();
+        return trackButtons();
       }
     }
   };
@@ -181,28 +190,26 @@ function Track(props) {
       if(forPlayerOne) {
         return <div>
           {renderTrackValue()}
-          {placeCardButton()}
-          {handleDiscardButton()}
+          {handleTrackButtons()}
           {renderCards()}
         </div>
       }
       return <div>
         {renderCards()}
-        {placeCardButton()}
-        {handleDiscardButton()}
+        {handleTrackButtons()}
         {renderTrackValue()}
       </div>
     }
     if(forPlayerOne) {
       return <div>
         {renderTrackValue()}
-        {placeCardButton()}
+        {handleTrackButtons()}
         {renderEmptyTrack()}
       </div>
     }
     return <div>
       {renderEmptyTrack()}
-      {placeCardButton()}
+      {handleTrackButtons()}
       {renderTrackValue()}
     </div>
   };
