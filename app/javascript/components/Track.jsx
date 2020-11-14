@@ -39,18 +39,6 @@ function Track(props) {
     ));
   };
 
-  const moveKingCard = (card) => {
-    if(selectedCard.face === "King") {
-      axios.patch(`${root_url}cards/${selectedCard.id}`, {
-        stage: `track${trackNumber}`,
-        value: card.value,
-        recipient_card_id: card.id
-      })
-      .then(() => setSelectedCard(null))
-      .catch((err) => console.log(err.response.data));
-    }
-  };
-
   const getKings = (recipientCard) => {
     return getTrackCards().filter((card) =>
       card.face === "King" && recipientCard.id === card.recipient_card_id
@@ -65,10 +53,46 @@ function Track(props) {
     });
   };
 
+  const setKing = (card) => {
+    axios.patch(`${root_url}cards/${selectedCard.id}`, {
+      stage: `track${trackNumber}`,
+      value: card.value,
+      recipient_card_id: card.id
+    })
+    .then(() => setSelectedCard(null))
+    .catch((err) => console.log(err.response.data));
+  };
+
+  const setJack = (card) => {
+    axios.patch(`${root_url}cards/${selectedCard.id}`, {
+      stage: "out"
+    })
+    .then(() => setJackResult(card))
+    .catch((err) => console.log(err.response.data));
+  };
+
+  const setJackResult = (baseCard) => {
+    setSelectedCard(null);
+    for(const card of getTrackCards()) {
+      if([card.recipient_card_id, card.id].includes(baseCard.id)) {
+        discardCard(card);
+      }
+    }
+  };
+
+  const setFaceCard = (card) => {
+    if(selectedCard.face === "King") {
+      setKing(card);
+    }
+    if(selectedCard.face === "Jack") {
+      setJack(card);
+    }
+  };
+
   const numberCard = (card) => {
     if(!card.face) {
       return <div className={`stack-${handleStackDirection()}`}>
-        <span onClick={() => moveKingCard(card)} className="cursor">
+        <span onClick={() => setFaceCard(card)} className="cursor">
           <Card card={card}/>
         </span>
         {renderKings(card)}
