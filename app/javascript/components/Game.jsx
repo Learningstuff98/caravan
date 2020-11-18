@@ -14,22 +14,28 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const [selectedCard, setSelectedCard] = useState(null);
   const [tracks, setTracks] = useState({
     track1: {
-      value: 0
+      value: 0,
+      direction: "Flat"
     },
     track2: {
-      value: 0
+      value: 0,
+      direction: "Flat"
     },
     track3: {
-      value: 0
+      value: 0,
+      direction: "Flat"
     },
     track4: {
-      value: 0
+      value: 0,
+      direction: "Flat"
     },
     track5: {
-      value: 0
+      value: 0,
+      direction: "Flat"
     },
     track6: {
-      value: 0
+      value: 0,
+      direction: "Flat"
     }
   });
 

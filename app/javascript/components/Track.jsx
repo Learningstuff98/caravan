@@ -14,9 +14,46 @@ function Track(props) {
     .catch((err) => console.log(err.response.data));
   };
 
+  const getValueCards = () => {
+    return cards.filter((card) => {
+      return card.stage === `track${trackNumber}` && !card.face
+    });
+  };
+
+  const handleUpwardCardMoves = (selectedCard, lastValueCard) => {
+    if(currentTrack().direction === 'Up') {
+      if(selectedCard.value > lastValueCard.value) {
+        moveCard();
+      } else {
+        alert("This track's direction is going upward. You'll need a card that has a higher value, or a card of the same suit as the last card in this track");
+      }
+    }
+  };
+
+  const handleDownwardCardMoves = (selectedCard, lastValueCard) => {
+    if(currentTrack().direction === 'Down') {
+      if(selectedCard.value < lastValueCard.value) {
+        moveCard();
+      } else {
+        alert("This track's direction is going downward. You'll need a card that has a lower value, or a card of the same suit as the last card in this track");
+      }
+    }
+  };
+
   const handleCardMovement = () => {
+    const valueCards = sortByPlace(getValueCards());
+    const lastValueCard = valueCards[valueCards.length - 1];
     if(selectedCard && !selectedCard.face) {
-      moveCard();
+      if(currentTrack().direction !== "Flat") {
+        if(selectedCard.suit !== lastValueCard.suit) {
+          handleUpwardCardMoves(selectedCard, lastValueCard);
+          handleDownwardCardMoves(selectedCard, lastValueCard);
+        } else {
+          moveCard();
+        }
+      } else {
+        moveCard();
+      }
     }
   };
 
@@ -114,12 +151,31 @@ function Track(props) {
     }, 0);
   };
 
+  const getDirection = () => {
+    const valueCards = sortByPlace(getValueCards());
+    const lastCard = valueCards[valueCards.length - 1];
+    const secondToLastCard = valueCards[valueCards.length - 2];
+    if(valueCards.length > 1) {
+      if(lastCard.value > secondToLastCard.value) {
+        return "Up";
+      }
+      if(lastCard.value < secondToLastCard.value) {
+        return "Down";
+      }
+    }
+    return "Flat";
+  };
+
   const updateTrack = () => {
     let newTracks = {};
     for(const number of [1, 2, 3, 4, 5, 6]) {
-      newTracks[`track${number}`] = {value: tracks[`track${number}`].value};
+      newTracks[`track${number}`] = {
+        value: tracks[`track${number}`].value,
+        direction: tracks[`track${number}`].direction
+      };
     }
     newTracks[`track${trackNumber}`].value = getTrackValue();
+    newTracks[`track${trackNumber}`].direction = getDirection();
     return newTracks;
   };
 
@@ -153,16 +209,16 @@ function Track(props) {
 
   const handleDiscardTrackButton = () => {
     if(getTrackCards().length > 0) {
-      return <h5 onClick={() => discardTrack()} className="box-small text-center cursor">
+      return <div onClick={() => discardTrack()} className="box-small text-center cursor">
         Discard Track
-      </h5>
+      </div>
     }
   };
 
   const placeCardButton = () => {
-    return <h5 onClick={() => handleCardMovement()} className="box-small text-center cursor">
+    return <div onClick={() => handleCardMovement()} className="box-small text-center cursor">
       Place Card
-    </h5>
+    </div>
   };
 
   const trackButtons = () => {
@@ -185,11 +241,18 @@ function Track(props) {
     }
   };
 
+  const renderTrackDirection = () => {
+    return <h5 className="box-small text-center">
+      {currentTrack().direction}
+    </h5>
+  };
+
   const handleTrackDisplay = () => {
     if(getTrackCards().length > 0) {
       if(forPlayerOne) {
         return <div>
           {renderTrackValue()}
+          {renderTrackDirection()}
           {handleTrackButtons()}
           {renderCards()}
         </div>
@@ -197,12 +260,14 @@ function Track(props) {
       return <div>
         {renderCards()}
         {handleTrackButtons()}
+        {renderTrackDirection()}
         {renderTrackValue()}
       </div>
     }
     if(forPlayerOne) {
       return <div>
         {renderTrackValue()}
+        {renderTrackDirection()}
         {handleTrackButtons()}
         {renderEmptyTrack()}
       </div>
@@ -210,6 +275,7 @@ function Track(props) {
     return <div>
       {renderEmptyTrack()}
       {handleTrackButtons()}
+      {renderTrackDirection()}
       {renderTrackValue()}
     </div>
   };
