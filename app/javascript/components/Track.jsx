@@ -108,13 +108,17 @@ function Track(props) {
     .catch((err) => console.log(err.response.data));
   };
 
+  // calling setJack and setJackResult would invert the turn twice
+
   const setJackResult = (baseCard) => {
     setSelectedCard(null);
+    let cardsForDiscard = [];
     for(const card of getTrackCards()) {
       if([card.recipient_card_id, card.id].includes(baseCard.id)) {
-        discardCard(card);
+        cardsForDiscard.push(card.id);
       }
     }
+    updateCardIdList(cardsForDiscard);
   };
 
   const setFaceCard = (card) => {
@@ -199,12 +203,23 @@ function Track(props) {
     return <div className="empty-track"></div>
   };
 
+  const getTrackCardIds = () => {
+    return getTrackCards().map((card) => {
+      return card.id;
+    });
+  };
+
   const discardTrack = () => {
     if(confirm("Discard the cards in this track?")) {
-      for(const card of getTrackCards()) {
-        discardCard(card);
-      }
+      updateCardIdList(getTrackCardIds());
     }
+  };
+
+  const updateCardIdList = (ids) => {
+    axios.patch(`${root_url}games/${game.id}`, {
+      card_id_list: `${ids}`
+    })
+    .catch((err) => console.log(err.response.data));
   };
 
   const handleDiscardTrackButton = () => {
