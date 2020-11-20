@@ -28,6 +28,9 @@ class GamesController < ApplicationController
     game = current_game
     game.update_attributes(game_params)
     game.handle_multiple_discards
+    if current_user.hand_card_count < 5
+      current_user.draw_card
+    end
     SendGameAndCardsJob.perform_later(game)
   end
 

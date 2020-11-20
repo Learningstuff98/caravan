@@ -100,25 +100,16 @@ function Track(props) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const setJack = (card) => {
-    axios.patch(`${root_url}cards/${selectedCard.id}`, {
-      stage: "out"
-    })
-    .then(() => setJackResult(card))
-    .catch((err) => console.log(err.response.data));
-  };
-
-  // calling setJack and setJackResult would invert the turn twice
-
-  const setJackResult = (baseCard) => {
-    setSelectedCard(null);
-    let cardsForDiscard = [];
+  const setJack = (baseCard) => {
+    let cardIdsForDiscard = [];
     for(const card of getTrackCards()) {
       if([card.recipient_card_id, card.id].includes(baseCard.id)) {
-        cardsForDiscard.push(card.id);
+        cardIdsForDiscard.push(card.id);
       }
     }
-    updateCardIdList(cardsForDiscard);
+    cardIdsForDiscard.push(selectedCard.id);
+    updateCardIdList(cardIdsForDiscard);
+    setSelectedCard(null);
   };
 
   const setFaceCard = (card) => {
