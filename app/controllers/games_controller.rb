@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token, only: [:destroy]
+  skip_before_action :verify_authenticity_token, only: [:destroy, :update]
 
   def create
     @game = current_user.games.create(player_1: current_user.username)
@@ -24,10 +24,25 @@ class GamesController < ApplicationController
     @game.destroy
   end
 
+  def update
+    game = current_game
+    game.update_attributes(game_params)
+    game.handle_multiple_discards
+    if current_user.hand_card_count < 5
+      current_user.draw_card
+    end
+    game.update_attribute(:host_turn, !game.host_turn)
+    SendGameAndCardsJob.perform_later(game)
+  end
+
   private
 
   def current_game
     @game ||= Game.find(params[:id])
+  end
+
+  def game_params
+    params.require(:game).permit(:card_id_list)
   end
 
 end

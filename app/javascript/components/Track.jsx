@@ -3,7 +3,7 @@ import axios from "axios";
 import Card from './Card';
 
 function Track(props) {
-  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, discardCard } = props;
+  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, isLegalTurn } = props;
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
@@ -100,21 +100,16 @@ function Track(props) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const setJack = (card) => {
-    axios.patch(`${root_url}cards/${selectedCard.id}`, {
-      stage: "out"
-    })
-    .then(() => setJackResult(card))
-    .catch((err) => console.log(err.response.data));
-  };
-
-  const setJackResult = (baseCard) => {
-    setSelectedCard(null);
+  const setJack = (baseCard) => {
+    let cardIdsForDiscard = [];
     for(const card of getTrackCards()) {
       if([card.recipient_card_id, card.id].includes(baseCard.id)) {
-        discardCard(card);
+        cardIdsForDiscard.push(card.id);
       }
     }
+    cardIdsForDiscard.push(selectedCard.id);
+    updateCardIdList(cardIdsForDiscard);
+    setSelectedCard(null);
   };
 
   const setFaceCard = (card) => {
@@ -199,17 +194,32 @@ function Track(props) {
     return <div className="empty-track"></div>
   };
 
-  const discardTrack = () => {
-    if(confirm("Discard the cards in this track?")) {
-      for(const card of getTrackCards()) {
-        discardCard(card);
+  const getTrackCardIds = () => {
+    return getTrackCards().map((card) => {
+      return card.id;
+    });
+  };
+
+  const handleTrackDiscard = () => {
+    if(isLegalTurn()) {
+      if(confirm("Discard the cards in this track?")) {
+        updateCardIdList(getTrackCardIds());
       }
+    } else {
+      alert("It's the other player's turn");
     }
+  };
+
+  const updateCardIdList = (ids) => {
+    axios.patch(`${root_url}games/${game.id}`, {
+      card_id_list: `${ids}`
+    })
+    .catch((err) => console.log(err.response.data));
   };
 
   const handleDiscardTrackButton = () => {
     if(getTrackCards().length > 0) {
-      return <div onClick={() => discardTrack()} className="box-small text-center cursor">
+      return <div onClick={() => handleTrackDiscard()} className="box-small text-center cursor">
         Discard Track
       </div>
     }

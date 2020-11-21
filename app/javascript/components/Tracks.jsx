@@ -1,7 +1,7 @@
 import React from 'react';
 import Track from './Track';
 
-export default function Tracks({ cards, selectedCard, root_url, setSelectedCard, tracks, setTracks, current_user, game, discardCard }) {
+export default function Tracks({ cards, selectedCard, root_url, setSelectedCard, tracks, setTracks, current_user, game, isLegalTurn }) {
 
   const renderTracks = (trackNumbers, forPlayerOne) => {
     return trackNumbers.map((trackNumber) => {
@@ -17,7 +17,7 @@ export default function Tracks({ cards, selectedCard, root_url, setSelectedCard,
           setTracks={setTracks}
           current_user={current_user}
           game={game}
-          discardCard={discardCard}
+          isLegalTurn={isLegalTurn}
         />
       </span>
     });

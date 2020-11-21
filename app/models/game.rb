@@ -15,4 +15,12 @@ class Game < ApplicationRecord
     end
   end
 
+  def handle_multiple_discards
+    ids = self.card_id_list.split(%r{,\s*})
+    self.cards.each do |card|
+      card.update_attribute(:stage, 'out') if ids.include?(card.id.to_s)
+    end
+    self.update_attribute(:card_id_list, '')
+  end
+
 end

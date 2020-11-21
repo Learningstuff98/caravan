@@ -1,11 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import Card from './Card';
 import CardBack from './CardBack';
 
 function Hand(props) {
 
-  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, discardCard } = props;
+  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, discardCard, isLegalTurn } = props;
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -24,8 +23,12 @@ function Hand(props) {
   };
 
   const handleDiscard = (card) => {
-    if(confirm("Discard this card?")) {
-      discardCard(card);
+    if(isLegalTurn()) {
+      if(confirm("Discard this card?")) {
+        discardCard(card);
+      }
+    } else {
+      alert("It's the other player's turn");
     }
   };
 
@@ -35,9 +38,17 @@ function Hand(props) {
     </h5>
   };
 
+  const handleCardSelecting = (card) => {
+    if(isLegalTurn()) {
+      setSelectedCard(card);
+    } else {
+      alert("It's the other player's turn");
+    }
+  };
+
   const renderHandCard = (card) => {
     return <div>
-      <div onClick={() => setSelectedCard(card)}>
+      <div onClick={() => handleCardSelecting(card)}>
         <Card card={card}/>
         {handleSelectedNotice(card)}
       </div>
