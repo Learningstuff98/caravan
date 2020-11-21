@@ -18,6 +18,7 @@ class CardsController < ApplicationController
     if current_user.hand_card_count < 5
       current_user.draw_card
     end
+    card.game.update_attribute(:host_turn, !card.game.host_turn)
     SendGameAndCardsJob.perform_later(card.game)
   end
 

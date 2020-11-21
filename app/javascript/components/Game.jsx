@@ -76,6 +76,19 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     .catch((err) => console.log(err.response.data));
   };
 
+  const isLegalTurn = () => {
+    if(current_user.id === game.user_id) {
+      if(game.host_turn) {
+        return true;
+      }
+    }
+    if(current_user.id !== game.user_id) {
+      if(!game.host_turn) {
+        return true;
+      }
+    }
+  };
+
   const renderPlayerOneDeck = () => {
     return <div className="deck">
       <Deck
@@ -110,6 +123,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         selectedCard={selectedCard}
         root_url={root_url}
         discardCard={discardCard}
+        isLegalTurn={isLegalTurn}
       />
     </div>
   };
@@ -126,6 +140,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         selectedCard={selectedCard}
         root_url={root_url}
         discardCard={discardCard}
+        isLegalTurn={isLegalTurn}
       />
     </div>
   };
@@ -150,7 +165,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       setTracks={setTracks}
       game={game}
       current_user={current_user}
-      discardCard={discardCard}
+      isLegalTurn={isLegalTurn}
     />
   };
 

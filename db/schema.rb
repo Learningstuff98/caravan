@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_023448) do
+ActiveRecord::Schema.define(version: 2020_11_21_045342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_023448) do
     t.string "player_2"
     t.integer "absent_player_id"
     t.text "card_id_list"
+    t.boolean "host_turn", default: true
   end
 
   create_table "users", force: :cascade do |t|
