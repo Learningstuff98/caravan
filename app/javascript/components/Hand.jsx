@@ -1,10 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import Card from './Card';
 import CardBack from './CardBack';
 
 function Hand(props) {
 
-  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, discardCard, isLegalTurn } = props;
+  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, isLegalTurn, root_url } = props;
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -20,6 +21,14 @@ function Hand(props) {
         Selected
       </h5>
     }
+  };
+
+  const discardCard = (card) => {
+    axios.patch(`${root_url}cards/${card.id}`, {
+      stage: "out"
+    })
+    .then(() => setSelectedCard(null))
+    .catch((err) => console.log(err.response.data));
   };
 
   const handleDiscard = (card) => {

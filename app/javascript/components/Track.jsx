@@ -109,7 +109,6 @@ function Track(props) {
     }
     cardIdsForDiscard.push(selectedCard.id);
     updateCardIdList(cardIdsForDiscard);
-    setSelectedCard(null);
   };
 
   const setFaceCard = (card) => {
@@ -214,6 +213,7 @@ function Track(props) {
     axios.patch(`${root_url}games/${game.id}`, {
       card_id_list: `${ids}`
     })
+    .then(() => setSelectedCard(null))
     .catch((err) => console.log(err.response.data));
   };
 

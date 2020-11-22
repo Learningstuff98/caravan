@@ -69,13 +69,6 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return !belongsToPlayerOne(card);
   };
 
-  const discardCard = (card) => {
-    axios.patch(`${root_url}cards/${card.id}`, {
-      stage: "out"
-    })
-    .catch((err) => console.log(err.response.data));
-  };
-
   const isLegalTurn = () => {
     if(current_user.id === game.user_id) {
       if(game.host_turn) {
@@ -122,7 +115,6 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
         root_url={root_url}
-        discardCard={discardCard}
         isLegalTurn={isLegalTurn}
       />
     </div>
@@ -139,7 +131,6 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
         root_url={root_url}
-        discardCard={discardCard}
         isLegalTurn={isLegalTurn}
       />
     </div>
