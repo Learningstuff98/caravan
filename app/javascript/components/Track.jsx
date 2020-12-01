@@ -8,10 +8,20 @@ function Track(props) {
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
       stage: `track${trackNumber}`,
-      place: getTrackCards().length
+      place: getNewPlaceValue()
     })
     .then(() => setSelectedCard(null))
     .catch((err) => console.log(err.response.data));
+  };
+
+  const getNewPlaceValue = () => {
+    let highestPlace = 0;
+    for(const card of getTrackCards()) {
+      if(card.place > highestPlace) {
+        highestPlace = card.place;
+      }
+    }
+    return highestPlace + 1;
   };
 
   const getValueCards = () => {
