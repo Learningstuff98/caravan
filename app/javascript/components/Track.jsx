@@ -170,16 +170,71 @@ function Track(props) {
     return "Flat";
   };
 
+  const getOpposingTrack = (newTracks) => {
+    if([1, 2, 3].includes(trackNumber)) {
+      return newTracks[`track${trackNumber + 3}`];
+    }
+    if([4, 5, 6].includes(trackNumber)) {
+      return newTracks[`track${trackNumber - 3}`];
+    }
+  };
+
+  const isInBidingRange = (trackValue) => {
+    return trackValue >= 21 && trackValue <= 26;
+  };
+
+  const opposingIsInBidingRange = (opposingTrack) => {
+    return opposingTrack.value >= 21 && opposingTrack.value <= 26;
+  };
+
+  const getTrackStatus = (newTracks, trackValue) => {
+    let opposingTrack = getOpposingTrack(newTracks);
+    if(isInBidingRange(trackValue)) {
+      if(opposingIsInBidingRange(opposingTrack)) {
+        if(opposingTrack.value === trackValue) {
+          opposingTrack.status = "Tied";
+          return "Tied";
+        }
+        if(opposingTrack.value > trackValue) {
+          opposingTrack.status = "Sold";
+          return "Outbid";
+        }
+        if(opposingTrack.value < trackValue) {
+          opposingTrack.status = "Outbid";
+          return "Sold";
+        }
+      }
+    }
+    if(opposingTrack.value >= 21 && opposingTrack.value <= 26) {
+      opposingTrack.status = "Sold";
+    }
+    if(opposingTrack.value > 26) {
+      opposingTrack.status = "Bust";
+    }
+    if(opposingTrack.value < 21) {
+      opposingTrack.status = "forSale";
+    }
+    if(isInBidingRange(trackValue)) {
+      return "Sold";
+    }
+    if(trackValue > 26) {
+      return "Bust";
+    }
+    return "forSale";
+  };
+
   const updateTrack = () => {
     let newTracks = {};
     for(const number of [1, 2, 3, 4, 5, 6]) {
       newTracks[`track${number}`] = {
         value: tracks[`track${number}`].value,
-        direction: tracks[`track${number}`].direction
+        direction: tracks[`track${number}`].direction,
+        status: tracks[`track${number}`].status
       };
     }
     newTracks[`track${trackNumber}`].value = getTrackValue();
     newTracks[`track${trackNumber}`].direction = getDirection();
+    newTracks[`track${trackNumber}`].status = getTrackStatus(newTracks, getTrackValue())
     return newTracks;
   };
 
@@ -267,11 +322,18 @@ function Track(props) {
     </h5>
   };
 
+  const renderTrackStatus = () => {
+    return <h5 className="box-small text-center">
+      {currentTrack().status}
+    </h5>
+  };
+
   const handleTrackDisplay = () => {
     if(getTrackCards().length > 0) {
       if(forPlayerOne) {
         return <div>
           {renderTrackValue()}
+          {renderTrackStatus()}
           {renderTrackDirection()}
           {handleTrackButtons()}
           {renderCards()}
@@ -281,12 +343,14 @@ function Track(props) {
         {renderCards()}
         {handleTrackButtons()}
         {renderTrackDirection()}
+        {renderTrackStatus()}
         {renderTrackValue()}
       </div>
     }
     if(forPlayerOne) {
       return <div>
         {renderTrackValue()}
+        {renderTrackStatus()}
         {renderTrackDirection()}
         {handleTrackButtons()}
         {renderEmptyTrack()}
@@ -296,6 +360,7 @@ function Track(props) {
       {renderEmptyTrack()}
       {handleTrackButtons()}
       {renderTrackDirection()}
+      {renderTrackStatus()}
       {renderTrackValue()}
     </div>
   };

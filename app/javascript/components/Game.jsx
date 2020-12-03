@@ -15,27 +15,33 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const [tracks, setTracks] = useState({
     track1: {
       value: 0,
-      direction: "Flat"
+      direction: "Flat",
+      status: "forSale"
     },
     track2: {
       value: 0,
-      direction: "Flat"
+      direction: "Flat",
+      status: "forSale"
     },
     track3: {
       value: 0,
-      direction: "Flat"
+      direction: "Flat",
+      status: "forSale"
     },
     track4: {
       value: 0,
-      direction: "Flat"
+      direction: "Flat",
+      status: "forSale"
     },
     track5: {
       value: 0,
-      direction: "Flat"
+      direction: "Flat",
+      status: "forSale"
     },
     track6: {
       value: 0,
-      direction: "Flat"
+      direction: "Flat",
+      status: "forSale"
     }
   });
 
