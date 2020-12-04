@@ -48,11 +48,11 @@ function Hand(props) {
   };
 
   const handleCardSelecting = (card) => {
-    if(isLegalTurn()) {
+    //if(isLegalTurn()) {
       setSelectedCard(card);
-    } else {
-      alert("It's the other player's turn");
-    }
+    // } else {
+    //   alert("It's the other player's turn");
+    // }
   };
 
   const renderHandCard = (card) => {
