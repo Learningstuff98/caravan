@@ -5,7 +5,7 @@ import CardBack from './CardBack';
 
 function Hand(props) {
 
-  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, isLegalTurn, root_url } = props;
+  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, isLegalTurn, root_url, gameOver } = props;
 
   const getHandCards = () => {
     return cards.filter((card) => {
@@ -32,12 +32,16 @@ function Hand(props) {
   };
 
   const handleDiscard = (card) => {
-    if(isLegalTurn()) {
-      if(confirm("Discard this card?")) {
-        discardCard(card);
-      }
+    if(!gameOver) {
+      if(isLegalTurn()) {
+        if(confirm("Discard this card?")) {
+          discardCard(card);
+        }
+      } else {
+        alert("It's the other player's turn");
+      } 
     } else {
-      alert("It's the other player's turn");
+      alert("The game is over");
     }
   };
 
@@ -48,11 +52,15 @@ function Hand(props) {
   };
 
   const handleCardSelecting = (card) => {
-    //if(isLegalTurn()) {
-      setSelectedCard(card);
-    // } else {
-    //   alert("It's the other player's turn");
-    // }
+    if(!gameOver) {
+      if(isLegalTurn()) {
+        setSelectedCard(card);
+      } else {
+        alert("It's the other player's turn");
+      }
+    } else {
+      alert("The game is over");
+    }
   };
 
   const renderHandCard = (card) => {

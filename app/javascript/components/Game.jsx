@@ -13,6 +13,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const [cards, setCards] = useState(initialCards);
   const [notice, setNotice] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
   const [tracks, setTracks] = useState({
     track1: {
       value: 0,
@@ -123,6 +124,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         selectedCard={selectedCard}
         root_url={root_url}
         isLegalTurn={isLegalTurn}
+        gameOver={gameOver}
       />
     </div>
   };
@@ -139,6 +141,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         selectedCard={selectedCard}
         root_url={root_url}
         isLegalTurn={isLegalTurn}
+        gameOver={gameOver}
       />
     </div>
   };
@@ -164,6 +167,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       game={game}
       current_user={current_user}
       isLegalTurn={isLegalTurn}
+      gameOver={gameOver}
     />
   };
 
@@ -171,6 +175,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
     return <WinnerStatement
       tracks={tracks}
       game={game}
+      setGameOver={setGameOver}
     />
   };
 

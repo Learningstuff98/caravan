@@ -3,7 +3,7 @@ import axios from "axios";
 import Card from './Card';
 
 function Track(props) {
-  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, isLegalTurn } = props;
+  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, isLegalTurn, gameOver } = props;
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
@@ -265,12 +265,16 @@ function Track(props) {
   };
 
   const handleTrackDiscard = () => {
-    if(isLegalTurn()) {
-      if(confirm("Discard the cards in this track?")) {
-        updateCardIdList(getTrackCardIds());
+    if(!gameOver) {
+      if(isLegalTurn()) {
+        if(confirm("Discard the cards in this track?")) {
+          updateCardIdList(getTrackCardIds());
+        }
+      } else {
+        alert("It's the other player's turn");
       }
     } else {
-      alert("It's the other player's turn");
+      alert("The game is over");
     }
   };
 

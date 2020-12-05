@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function WinnerStatement({ tracks, game }) {
+function WinnerStatement({ tracks, game, setGameOver }) {
   const [playerOneSales, setPlayerOneSales] = useState(0);
   const [playerTwoSales, setPlayerTwoSales] = useState(0);
 
@@ -9,32 +9,36 @@ function WinnerStatement({ tracks, game }) {
   }, [tracks]);
 
   const getWinStatus = () => {
-    let playerOneSalesTotal = 0;
-    let playerTwoSalesTotal = 0;
+    let playerOneSalesCount = 0;
+    let playerTwoSalesCount = 0;
     for(let trackNumber = 1; trackNumber <= 6; trackNumber++) {
       if(tracks[`track${trackNumber}`].status === "Sold") {
         if([4, 5, 6].includes(trackNumber)) {
-          playerOneSalesTotal += 1;
+          playerOneSalesCount += 1;
         } else {
-          playerTwoSalesTotal += 1;
+          playerTwoSalesCount += 1;
         }
       }
     }
-    setPlayerOneSales(playerOneSalesTotal);
-    setPlayerTwoSales(playerTwoSalesTotal);
+    setPlayerOneSales(playerOneSalesCount);
+    setPlayerTwoSales(playerTwoSalesCount);
   };
 
   const renderWinner = () => {
     if(playerOneSales === 3) {
+      setGameOver(true);
       return <h1>{`${game.player_1} won`}</h1>
     }
     if(playerOneSales === 2 && playerTwoSales === 1) {
+      setGameOver(true);
       return <h1>{`${game.player_1} won`}</h1>
     }
     if(playerTwoSales === 3) {
+      setGameOver(true);
       return <h1>{`${game.player_2} won`}</h1>
     }
     if(playerTwoSales === 2 && playerOneSales === 1) {
+      setGameOver(true);
       return <h1>{`${game.player_2} won`}</h1>
     }
   };
