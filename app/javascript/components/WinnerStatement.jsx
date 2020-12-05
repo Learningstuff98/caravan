@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function WinnerStatement({ tracks, game, setGameOver }) {
+function WinnerStatement({ tracks, game, setGameOver, root_url, deleteGame }) {
   const [playerOneSales, setPlayerOneSales] = useState(0);
   const [playerTwoSales, setPlayerTwoSales] = useState(0);
 
@@ -24,27 +24,40 @@ function WinnerStatement({ tracks, game, setGameOver }) {
     setPlayerTwoSales(playerTwoSalesCount);
   };
 
-  const renderWinner = () => {
+  const winnerMessage = (player) => {
+    return <h1 className="winner-message-container">
+      <div className="winner-message-box col-6">
+        <br/><br/>
+        {`${player} Won`}
+        <br/>
+        <a href={root_url} onClick={() => deleteGame()} className="green">
+          Return to homepage
+        </a>
+      </div>
+    </h1>
+  };
+
+  const handleWinnerMessage = () => {
     if(playerOneSales === 3) {
       setGameOver(true);
-      return <h1>{`${game.player_1} won`}</h1>
+      return winnerMessage(game.player_1);
     }
     if(playerOneSales === 2 && playerTwoSales === 1) {
       setGameOver(true);
-      return <h1>{`${game.player_1} won`}</h1>
+      return winnerMessage(game.player_1);
     }
     if(playerTwoSales === 3) {
       setGameOver(true);
-      return <h1>{`${game.player_2} won`}</h1>
+      return winnerMessage(game.player_2);
     }
     if(playerTwoSales === 2 && playerOneSales === 1) {
       setGameOver(true);
-      return <h1>{`${game.player_2} won`}</h1>
+      return winnerMessage(game.player_2);
     }
   };
 
   return <div>
-    {renderWinner()}
+    {handleWinnerMessage()}
     <h1>{`player 1 sales: ${playerOneSales}`}</h1>
     <h1>{`player 2 sales: ${playerTwoSales}`}</h1>
   </div>

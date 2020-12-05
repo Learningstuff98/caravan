@@ -203,3 +203,22 @@ body {
 .king {
   margin-left: -85px;
 }
+
+.winner-message-box {
+  padding: 10px;
+  border: 3px solid;
+  border-color: #00C122;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-align: center;
+  margin-top: 500px;
+  min-height: 380px;
+  z-index: 2;
+  position: absolute;
+}
+
+.winner-message-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

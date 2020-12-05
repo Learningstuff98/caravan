@@ -176,6 +176,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       tracks={tracks}
       game={game}
       setGameOver={setGameOver}
+      root_url={root_url}
+      deleteGame={deleteGame}
     />
   };
 
