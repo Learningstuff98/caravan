@@ -8,8 +8,13 @@ export default function Notice({ root_url }) {
     </a>
   };
 
-  return <h4 className="box player-status">
-    <div>The other player has left.</div>
-    {button()}
-  </h4>
+  return <div>
+    <h1 className="end-game-message-container">
+      <div className="end-game-message-box col-6">
+        The other player has left.
+        <br/>
+        {button()}
+      </div>
+    </h1>
+  </div>
 }

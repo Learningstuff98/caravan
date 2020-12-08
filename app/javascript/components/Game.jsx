@@ -48,7 +48,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   });
 
   const handleNotice = () => {
-    if(notice) {
+    if(notice && !gameOver) {
       return <Notice root_url={root_url}/>
     }
   };
@@ -59,7 +59,7 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   };
 
   const handleEndGameButton = () => {
-    if(!notice) {
+    if(!notice && !gameOver) {
       return <h3 className="end-match-btn" onClick={() => deleteGame()}>
         <a className="green" href={root_url}>End Game</a>
       </h3>

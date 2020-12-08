@@ -25,13 +25,17 @@ function WinnerStatement({ tracks, game, setGameOver, root_url, deleteGame }) {
   };
 
   const winnerMessage = (player) => {
-    return <h1 className="winner-message-container">
-      <div className="winner-message-box col-6">
+    return <h1 className="end-game-message-container">
+      <div className="end-game-message-box col-6">
         <br/><br/>
         {`${player} Won`}
         <br/>
         <a href={root_url} onClick={() => deleteGame()} className="green">
           Return to homepage
+        </a>
+        <br/>
+        <a href={`${root_url}lobby`} onClick={() => deleteGame()} className="green">
+          Return to Lobby
         </a>
       </div>
     </h1>
