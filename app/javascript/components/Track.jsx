@@ -3,7 +3,7 @@ import axios from "axios";
 import Card from './Card';
 
 function Track(props) {
-  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, isLegalTurn } = props;
+  const { trackNumber, cards, selectedCard, root_url, setSelectedCard, forPlayerOne, tracks, setTracks, current_user, game, isLegalTurn, gameOver } = props;
 
   const moveCard = () => {
     axios.patch(`${root_url}cards/${selectedCard.id}`, {
@@ -170,16 +170,79 @@ function Track(props) {
     return "Flat";
   };
 
+  const getOpposingTrack = (newTracks) => {
+    if([1, 2, 3].includes(trackNumber)) {
+      return newTracks[`track${trackNumber + 3}`];
+    }
+    if([4, 5, 6].includes(trackNumber)) {
+      return newTracks[`track${trackNumber - 3}`];
+    }
+  };
+
+  const getBidStatus = (trackValue, opposingTrack) => {
+    if(opposingTrack.value === trackValue) {
+      opposingTrack.status = "Tied";
+      return "Tied";
+    }
+    if(opposingTrack.value > trackValue) {
+      opposingTrack.status = "Sold";
+      return "Outbid";
+    }
+    if(opposingTrack.value < trackValue) {
+      opposingTrack.status = "Outbid";
+      return "Sold";
+    }
+  };
+
+  const getOpposingTrackStatus = (opposingTrack) => {
+    if(trackIsInRange(opposingTrack.value)) {
+      opposingTrack.status = "Sold";
+    }
+    if(opposingTrack.value > 26) {
+      opposingTrack.status = "Bust";
+    }
+    if(opposingTrack.value < 21) {
+      opposingTrack.status = "forSale";
+    }
+  };
+
+  const getCurrentTrackStatus = (trackValue) => {
+    if(trackIsInRange(trackValue)) {
+      return "Sold";
+    }
+    if(trackValue > 26) {
+      return "Bust";
+    }
+    return "forSale";
+  };
+
+  const trackIsInRange = (trackValue) => {
+    return trackValue >= 21 && trackValue <= 26;
+  };
+
+  const getTrackStatus = (newTracks, trackValue) => {
+    let opposingTrack = getOpposingTrack(newTracks);
+    if(trackIsInRange(trackValue)) {
+      if(trackIsInRange(opposingTrack.value)) {
+        return getBidStatus(trackValue, opposingTrack);
+      }
+    }
+    getOpposingTrackStatus(opposingTrack);
+    return getCurrentTrackStatus(trackValue);
+  };
+
   const updateTrack = () => {
     let newTracks = {};
     for(const number of [1, 2, 3, 4, 5, 6]) {
       newTracks[`track${number}`] = {
         value: tracks[`track${number}`].value,
-        direction: tracks[`track${number}`].direction
+        direction: tracks[`track${number}`].direction,
+        status: tracks[`track${number}`].status
       };
     }
     newTracks[`track${trackNumber}`].value = getTrackValue();
     newTracks[`track${trackNumber}`].direction = getDirection();
+    newTracks[`track${trackNumber}`].status = getTrackStatus(newTracks, getTrackValue())
     return newTracks;
   };
 
@@ -210,12 +273,16 @@ function Track(props) {
   };
 
   const handleTrackDiscard = () => {
-    if(isLegalTurn()) {
-      if(confirm("Discard the cards in this track?")) {
-        updateCardIdList(getTrackCardIds());
+    if(!gameOver) {
+      if(isLegalTurn()) {
+        if(confirm("Discard the cards in this track?")) {
+          updateCardIdList(getTrackCardIds());
+        }
+      } else {
+        alert("It's the other player's turn");
       }
     } else {
-      alert("It's the other player's turn");
+      alert("The game is over");
     }
   };
 
@@ -267,11 +334,18 @@ function Track(props) {
     </h5>
   };
 
+  const renderTrackStatus = () => {
+    return <h5 className="box-small text-center">
+      {currentTrack().status}
+    </h5>
+  };
+
   const handleTrackDisplay = () => {
     if(getTrackCards().length > 0) {
       if(forPlayerOne) {
         return <div>
           {renderTrackValue()}
+          {renderTrackStatus()}
           {renderTrackDirection()}
           {handleTrackButtons()}
           {renderCards()}
@@ -281,12 +355,14 @@ function Track(props) {
         {renderCards()}
         {handleTrackButtons()}
         {renderTrackDirection()}
+        {renderTrackStatus()}
         {renderTrackValue()}
       </div>
     }
     if(forPlayerOne) {
       return <div>
         {renderTrackValue()}
+        {renderTrackStatus()}
         {renderTrackDirection()}
         {handleTrackButtons()}
         {renderEmptyTrack()}
@@ -296,6 +372,7 @@ function Track(props) {
       {renderEmptyTrack()}
       {handleTrackButtons()}
       {renderTrackDirection()}
+      {renderTrackStatus()}
       {renderTrackValue()}
     </div>
   };
