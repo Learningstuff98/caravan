@@ -179,33 +179,23 @@ function Track(props) {
     }
   };
 
-  const isInBidingRange = (trackValue) => {
-    return trackValue >= 21 && trackValue <= 26;
-  };
-
-  const opposingIsInBidingRange = (opposingTrack) => {
-    return opposingTrack.value >= 21 && opposingTrack.value <= 26;
-  };
-
-  const getTrackStatus = (newTracks, trackValue) => {
-    let opposingTrack = getOpposingTrack(newTracks);
-    if(isInBidingRange(trackValue)) {
-      if(opposingIsInBidingRange(opposingTrack)) {
-        if(opposingTrack.value === trackValue) {
-          opposingTrack.status = "Tied";
-          return "Tied";
-        }
-        if(opposingTrack.value > trackValue) {
-          opposingTrack.status = "Sold";
-          return "Outbid";
-        }
-        if(opposingTrack.value < trackValue) {
-          opposingTrack.status = "Outbid";
-          return "Sold";
-        }
-      }
+  const getBidStatus = (trackValue, opposingTrack) => {
+    if(opposingTrack.value === trackValue) {
+      opposingTrack.status = "Tied";
+      return "Tied";
     }
-    if(opposingTrack.value >= 21 && opposingTrack.value <= 26) {
+    if(opposingTrack.value > trackValue) {
+      opposingTrack.status = "Sold";
+      return "Outbid";
+    }
+    if(opposingTrack.value < trackValue) {
+      opposingTrack.status = "Outbid";
+      return "Sold";
+    }
+  };
+
+  const getOpposingTrackStatus = (opposingTrack) => {
+    if(trackIsInRange(opposingTrack.value)) {
       opposingTrack.status = "Sold";
     }
     if(opposingTrack.value > 26) {
@@ -214,13 +204,31 @@ function Track(props) {
     if(opposingTrack.value < 21) {
       opposingTrack.status = "forSale";
     }
-    if(isInBidingRange(trackValue)) {
+  };
+
+  const getCurrentTrackStatus = (trackValue) => {
+    if(trackIsInRange(trackValue)) {
       return "Sold";
     }
     if(trackValue > 26) {
       return "Bust";
     }
     return "forSale";
+  };
+
+  const trackIsInRange = (trackValue) => {
+    return trackValue >= 21 && trackValue <= 26;
+  };
+
+  const getTrackStatus = (newTracks, trackValue) => {
+    let opposingTrack = getOpposingTrack(newTracks);
+    if(trackIsInRange(trackValue)) {
+      if(trackIsInRange(opposingTrack.value)) {
+        return getBidStatus(trackValue, opposingTrack);
+      }
+    }
+    getOpposingTrackStatus(opposingTrack);
+    return getCurrentTrackStatus(trackValue);
   };
 
   const updateTrack = () => {
