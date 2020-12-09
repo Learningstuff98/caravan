@@ -15,7 +15,7 @@ class User < ApplicationRecord
   end
 
   def set_initial_card_state(cards, game)
-    cards.each.with_index do |card, i|
+    cards.shuffle.each.with_index do |card, i|
       card.update_attribute(:stage, "hand") if i < 5
       card.update_attribute(:stage, "deck") if i >= 5
       card.update_attribute(:game_id, game.id)
