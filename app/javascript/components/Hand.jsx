@@ -64,7 +64,7 @@ function Hand(props) {
   };
 
   const renderHandCard = (card) => {
-    return <div>
+    return <div key={card.id}>
       <div onClick={() => handleCardSelecting(card)}>
         <Card card={card}/>
         {handleSelectedNotice(card)}
@@ -95,7 +95,7 @@ function Hand(props) {
   };
 
   return getHandCards().map((card) => {
-    return <span className="hand-card">
+    return <span key={card.id} className="hand-card">
       {showFrontOrBack(card)}
     </span>
   });

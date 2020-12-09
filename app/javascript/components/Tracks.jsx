@@ -5,7 +5,7 @@ export default function Tracks({ cards, selectedCard, root_url, setSelectedCard,
 
   const renderTracks = (trackNumbers, forPlayerOne) => {
     return trackNumbers.map((trackNumber) => {
-      return <span>
+      return <span key={trackNumber}>
         <Track
           trackNumber={trackNumber}
           cards={cards}

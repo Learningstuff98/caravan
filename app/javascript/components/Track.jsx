@@ -94,7 +94,7 @@ function Track(props) {
 
   const renderKings = (recipientCard) => {
     return getKings(recipientCard).map((king) => {
-      return <span className="king">
+      return <span key={king.id} className="king">
         <Card card={king}/>
       </span>
     });
@@ -144,7 +144,9 @@ function Track(props) {
   const renderCards = () => {
     return <div className="track">
       {getTrackCards().map((card) => {
-        return numberCard(card);
+        return <div key={card.id}>
+          {numberCard(card)}
+        </div>
       })}
     </div>
   };
