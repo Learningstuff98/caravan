@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function WinnerStatement({ tracks, game, setGameOver, root_url, deleteGame }) {
+function WinnerStatement({ tracks, game, setGameOver, root_url, deleteGame, playerOneHandCardCount, playerTwoHandCardCount }) {
   const [playerOneSales, setPlayerOneSales] = useState(0);
   const [playerTwoSales, setPlayerTwoSales] = useState(0);
 
@@ -57,6 +57,17 @@ function WinnerStatement({ tracks, game, setGameOver, root_url, deleteGame }) {
     if(playerTwoSales === 2 && playerOneSales === 1) {
       setGameOver(true);
       return winnerMessage(game.player_2);
+    }
+    if(playerOneHandCardCount === 0) {
+      setGameOver(true);
+      return winnerMessage(game.player_2);
+    }
+    if(game.player_2 && playerTwoHandCardCount === 0) {
+      setGameOver(true);
+      return winnerMessage(game.player_1);
+    }
+    if(playerTwoHandCardCount > 0) {
+      setGameOver(false);
     }
   };
 
