@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import CardBack from './CardBack';
 
 function Hand(props) {
 
-  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, isLegalTurn, root_url, gameOver } = props;
+  const { cards, forPlayerOne, game, current_user, determinOwnership, setSelectedCard, selectedCard, isLegalTurn, root_url, gameOver, setPlayerOneHandCardCount, setPlayerTwoHandCardCount } = props;
+
+  useEffect(() => {
+    if(forPlayerOne) {
+      setPlayerOneHandCardCount(getHandCards().length);
+    } else {
+      setPlayerTwoHandCardCount(getHandCards().length);
+    }
+  });
 
   const getHandCards = () => {
     return cards.filter((card) => {

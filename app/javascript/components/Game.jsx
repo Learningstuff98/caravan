@@ -14,6 +14,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
   const [notice, setNotice] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [gameOver, setGameOver] = useState(false);
+  const [playerOneHandCardCount, setPlayerOneHandCardCount] = useState(null);
+  const [playerTwoHandCardCount, setPlayerTwoHandCardCount] = useState(null);
   const [tracks, setTracks] = useState({
     track1: {
       value: 0,
@@ -125,6 +127,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         root_url={root_url}
         isLegalTurn={isLegalTurn}
         gameOver={gameOver}
+        setPlayerOneHandCardCount={setPlayerOneHandCardCount}
+        setPlayerTwoHandCardCount={setPlayerTwoHandCardCount}
       />
     </div>
   };
@@ -142,6 +146,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
         root_url={root_url}
         isLegalTurn={isLegalTurn}
         gameOver={gameOver}
+        setPlayerOneHandCardCount={setPlayerOneHandCardCount}
+        setPlayerTwoHandCardCount={setPlayerTwoHandCardCount}
       />
     </div>
   };
@@ -178,6 +184,8 @@ export default function Game({ initialGame, root_url, current_user, initialCards
       setGameOver={setGameOver}
       root_url={root_url}
       deleteGame={deleteGame}
+      playerOneHandCardCount={playerOneHandCardCount}
+      playerTwoHandCardCount={playerTwoHandCardCount}
     />
   };
 
