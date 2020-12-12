@@ -1,18 +1,8 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 
-// header
 .header-color {
   background-color: rgba(24, 21, 22, 0.9);
-}
-  
-// footer
-.footer {
-  background-color: rgba(24, 21, 22, 0.9);
-  color: #00C122;
-  flex-shrink: 0; // contributes to sticky footer behavior
-  padding: 20px;
-  width: 100%;
 }
 
 .column {
@@ -26,27 +16,13 @@
   clear: both;
 }
 
-.leftward-footer-elements {
-  margin-left: 10px;
-}
-
-// what drives the sticky footer behavior
-
-.content {
-  flex: 1 0 auto;
-}
-
-html, body {
-  height: 100%;
+.leftward-header-elements {
+  margin-left: 15px;
 }
 
 body {
   background-color: rgba(32, 32, 32, 0.9);
-  display: flex;
-  flex-direction: column;
 }
-
-// everything else
 
 .green {
   color: #00C122;
@@ -80,8 +56,8 @@ body {
   margin-top: 30px;
 }
 
-.link {
-  font-size: 18px;
+.header-info {
+  margin-bottom: 3px;
 }
 
 .link:hover {
