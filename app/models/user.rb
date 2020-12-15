@@ -31,6 +31,25 @@ class User < ApplicationRecord
     self.add_cards_to_game(cards, game)
   end
 
+  def handle_player_1_card_prep(cards, game)
+    if self == game.user && !game.player_1_cards_prepped
+      self.prepare_cards(cards, game)
+      game.update_attribute(:player_1_cards_prepped, true) 
+    end
+  end
+
+  def handle_player_2_card_prep(cards, game)
+    if self != game.user && !game.player_2_cards_prepped
+      self.prepare_cards(cards, game)
+      game.update_attribute(:player_2_cards_prepped, true) 
+    end
+  end
+
+  def handle_card_prep(cards, game)
+    self.handle_player_1_card_prep(cards, game)
+    self.handle_player_2_card_prep(cards, game)
+  end
+
   def hand_card_count
     self.cards.count { |card| 
       card.stage == 'hand' 

@@ -11,7 +11,7 @@ class GamesController < ApplicationController
 
   def show
     @game = current_game
-    current_user.prepare_cards(current_user.cards, @game)
+    current_user.handle_card_prep(current_user.cards, @game)
     @game.handle_player_2(current_user)
     SendGameAndCardsJob.perform_later(@game)
   end
