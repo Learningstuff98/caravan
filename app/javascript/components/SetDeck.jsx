@@ -29,7 +29,7 @@ export default function SetDeck({ root_url, cards }) {
   };
 
   const faces = () => {
-    return ['King', 'Queen', 'Jack'];
+    return ['King', 'Jack'];
   };
 
   const values = () => {
