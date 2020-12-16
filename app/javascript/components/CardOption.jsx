@@ -2,26 +2,26 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from './Card';
 
-export default function CardOption({ card, userCards, root_url, getCards }) {
-  const [selectedCards, setSelectedCards] = useState([]);
+function CardOption({ card, userCards, root_url, getCards }) {
+  const [cardOptionInstances, setCardOptionInstances] = useState([]);
 
   useEffect(() => {
-    collectSelectedCardMatches(userCards);
+    collectCardOptionInstances(userCards);
   }, [userCards]);
 
-  const collectSelectedCardMatches = () => {
-    let newSelectedCards = [];
+  const collectCardOptionInstances = () => {
+    let newCardOptionInstances = [];
     for(const userCard of userCards) {
       if(card.suit === userCard.suit) {
         if(card.value === userCard.value) {
-          newSelectedCards.push(userCard);
+          newCardOptionInstances.push(userCard);
         }
         if(card.face === userCard.face) {
-          newSelectedCards.push(userCard);
+          newCardOptionInstances.push(userCard);
         }
       }
     }
-    setSelectedCards(newSelectedCards);
+    setCardOptionInstances(newCardOptionInstances);
   };
 
   const addCard = () => {
@@ -37,13 +37,13 @@ export default function CardOption({ card, userCards, root_url, getCards }) {
   };
 
   const deleteCard = () => {
-    axios.delete(`${root_url}cards/${selectedCards[selectedCards.length - 1].id}`)
+    axios.delete(`${root_url}cards/${cardOptionInstances[0].id}`)
     .then(() => getCards())
     .catch((err) => console.log(err.response.data));
   };
 
   const handleDeleteCardButton = () => {
-    if(selectedCards.length > 0) {
+    if(cardOptionInstances.length > 0) {
       return <div className="cursor" onClick={() => deleteCard()}>
         remove
       </div>
@@ -71,16 +71,16 @@ export default function CardOption({ card, userCards, root_url, getCards }) {
     return <Card card={card}/>
   };
 
-  const handleAddedColoring = () => {
-    if(selectedCards.length > 0) {
+  const handleColoring = () => {
+    if(cardOptionInstances.length > 0) {
       return "added-to-deck";
     }
     return "";
   };
 
-  return <h3 className={`card-option-box text-center ${handleAddedColoring()}`}>
+  return <h3 className={`card-option-box text-center ${handleColoring()}`}>
     {buildCardOptionBody()}
-    {selectedCards.length}
+    {cardOptionInstances.length}
     {addCardButton()}
     {handleDeleteCardButton()}
     <div className="set-deck-card-placement">
@@ -88,3 +88,5 @@ export default function CardOption({ card, userCards, root_url, getCards }) {
     </div>
   </h3>
 }
+
+export default CardOption;
