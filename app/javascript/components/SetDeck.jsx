@@ -29,7 +29,7 @@ export default function SetDeck({ root_url, cards }) {
   };
 
   const faces = () => {
-    return ['King', 'Queen', 'Jack'];
+    return ['King', 'Jack'];
   };
 
   const values = () => {
@@ -56,7 +56,23 @@ export default function SetDeck({ root_url, cards }) {
     });
   };
 
+  const setDeckText = () => {
+    return <h3 className="text-center set-deck-width">
+      Set your deck
+      <br/><br/>
+      You can have
+      a maximum of 3 of
+      each card type
+      and a maximum
+      of 50 cards total.
+      <br/><br/>
+      Your current total is <br/>
+      {userCards.length}
+    </h3>
+  };
+
   return <div>
+    {setDeckText()}
     {renderNumberCardOptions()}
     {renderFaceCardOptions()}
     <br/>
