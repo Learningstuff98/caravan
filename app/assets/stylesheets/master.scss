@@ -98,7 +98,6 @@ body {
 }
 
 .set-deck-card-placement {
-  display: inline-block;
   margin-top: 15px;
 }
 
@@ -199,4 +198,14 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.center-set-deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.set-deck-text {
+  max-width: 300px;
 }
