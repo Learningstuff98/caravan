@@ -30,10 +30,12 @@ function CardOption({ card, userCards, root_url, getCards }) {
     .catch((err) => console.log(err.response.data));
   };
 
-  const addCardButton = () => {
-    return <div className="cursor" onClick={() => addCard()}>
-      Add this card
-    </div>
+  const handleAddCardButton = () => {
+    if(userCards.length < 50 && cardOptionInstances.length < 3) {
+      return <div className="cursor" onClick={() => addCard()}>
+        Add this card
+      </div>
+    }
   };
 
   const deleteCard = () => {
@@ -64,6 +66,7 @@ function CardOption({ card, userCards, root_url, getCards }) {
     return <div>
       {faceAceOrNumber()}{" of "}
       <span>{card.suit}</span>
+      <div>{cardOptionInstances.length}</div>
     </div>
   };
 
@@ -80,8 +83,7 @@ function CardOption({ card, userCards, root_url, getCards }) {
 
   return <h3 className={`card-option-box text-center ${handleColoring()}`}>
     {buildCardOptionBody()}
-    {cardOptionInstances.length}
-    {addCardButton()}
+    {handleAddCardButton()}
     {handleDeleteCardButton()}
     <div className="set-deck-card-placement">
       {renderCard()}

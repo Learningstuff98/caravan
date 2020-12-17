@@ -57,6 +57,7 @@ export default function SetDeck({ root_url, cards }) {
   };
 
   return <div>
+    <h3>You currently have {userCards.length} cards</h3>
     {renderNumberCardOptions()}
     {renderFaceCardOptions()}
     <br/>

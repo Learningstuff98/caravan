@@ -1,12 +1,20 @@
 <div class="container">
   <div class="text-center box top-margin col-8">
     <% if current_user %>
-      <%= simple_form_for @game, url: games_path do |f| %>
-        <h3><%= f.submit 'Host match', class: 'green host-match-btn' %></h3>
+      <% if current_user.cards.count >= 15 %>
+        <%= simple_form_for @game, url: games_path do |f| %>
+          <h3><%= f.submit 'Host match', class: 'green host-match-btn' %></h3>
+        <% end %>
+        <br/>
+        <h3><%= link_to "Go to lobby", lobby_path, class: "green" %></h3>
+        <br/>
+      <% else %>
+        <h3 class="green">
+          <div>You need to have at least 15 cards</div>
+          <div>in your deck to play</div>
+        </h3>
+        <br/>
       <% end %>
-      <br/>
-      <h3><%= link_to "Go to lobby", lobby_path, class: "green" %></h3>
-      <br/>
       <h3><%= link_to "Set your deck", set_deck_path, class: "green" %></h3>
       <br/>
       <h3><%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "green" %></h3>

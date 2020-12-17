@@ -6,6 +6,9 @@ class PagesController < ApplicationController
   end
 
   def lobby
+    if current_user.cards.count < 15
+      redirect_to root_path
+    end
     @game_tokens = GameToken.all
   end
 
