@@ -94,7 +94,6 @@ body {
   border-radius: 10px;
   background-color: rgba(24, 21, 22, 0.9);
   margin-top: 30px;
-  max-width: 300px;
 }
 
 .set-deck-card-placement {
@@ -206,6 +205,6 @@ body {
   align-items: center;
 }
 
-.set-deck-text {
-  max-width: 300px;
+.set-deck-width {
+  width: 400px;
 }

@@ -57,7 +57,7 @@ export default function SetDeck({ root_url, cards }) {
   };
 
   const setDeckText = () => {
-    return <h3 className="text-center set-deck-text">
+    return <h3 className="text-center set-deck-width">
       Set your deck
       <br/><br/>
       You can have
