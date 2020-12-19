@@ -1,0 +1,80 @@
+<div class="page-content green">
+  <h3>
+    Caravan is a card game from Fallout New Vegas
+    <br/>
+    that I've enjoyed so I decided to program it.
+
+    <br/><br/>
+
+    This is a two player game that can be thought of as being
+    <br/>
+    similar to blackjack, but times three as shown below.
+
+    <br/><br/>
+    <%= image_tag 'overview.png', class: 'overview-image img-fluid' %>
+    <br/><br/>
+
+    There are six tracks total, three to each player. Each track
+    has a number value that's derived <br/> from the cards on that track.
+
+    <br/><br/>
+
+    The goal is to get your tracks into bidding range, 21 to 26, in order
+    to sell the track.
+
+    <br/><br/>
+
+    Caravan is somewhat based on luck in that you'll be drawing cards from a deck,
+    <br/>
+    but it's largely based on deck composition and know how.
+    <br/>
+    Players will need to choose cards to add to their personal deck. The options
+    <br/>
+    are as follows:
+    <br/><br/>
+    Number cards 1 through 10 of all suits.
+    <br/>
+    Kings of all suits.
+    <br/>
+    Jacks of all suits.
+
+    <br/><br/>
+
+    There is a maximum of 3 of each of the above listed cards and a maximum<br/>
+    of 50 cards total that one can have in their deck.
+    <br/>
+    Each player will need to have a minimum of 15 cards in their deck to play.
+
+    <br/><br/>
+
+    Each player will have a hand of 5 cards, unless they're running out of cards,
+    <br/>
+    in which case that player loses.
+
+    <br/><br/>
+
+    Tracks can have the following states:
+    <br/><br/>
+    forSale: Having a value below 21.
+    <br/><br/>
+    Sold: Being in bidding range (21 to 26).
+    <br/><br/>
+    Tied: Being in bidding range (21 to 26), but being tied with your opponents track.
+    <br/><br/>
+    Outbid: Being in bidding range (21 to 26), but the opposing track is also in bidding range
+    <br/>
+    and of a higher value.
+    <br/><br/>
+    Bust: Over 26.
+
+    <br/><br/><br/>
+
+    Face Cards<br/>
+    Kings can be placed on any number card, including your opponent's.<br/>
+    Kings inherit the number value that they're placed on and contribute to<br/>
+    the track's value.
+    PLACE IMAGE
+  </h3>
+
+  <br/><br/><br/><br/><br/>
+</div>
