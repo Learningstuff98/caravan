@@ -69,12 +69,54 @@
 
     <br/><br/><br/>
 
-    Face Cards<br/>
+    Face Cards<br/><br/>
     Kings can be placed on any number card, including your opponent's.<br/>
     Kings inherit the number value that they're placed on and contribute to<br/>
-    the track's value.
-    PLACE IMAGE
-  </h3>
+    the track's value, shown below.
+    <br/><br/>
 
-  <br/><br/><br/><br/><br/>
+    <%= image_tag 'placedking.png', class: "placed-king-image img-fluid" %>
+
+    <br/><br/>
+
+    The king has been placed on top of the seven card, which makes the total 24.<br/>
+
+    <br/>
+
+    Jacks remove the card that they're placed on, along with any kings that are placed<br/>
+    on that card. Jacks can be used on both your cards and your opponent's cards.
+
+    <br/><br/>
+
+    In the above example, a jack could be used to remove the seven card, which would also<br/>
+    remove the king, or kings, that are on top of it. Or it could be used to remove the ten card below it.
+
+    <br/><br/><br/>
+
+    Direction<br/>
+    All tracks have a direction, the default being flat. Direction will be going up if the<br/>
+    last cards value is higher then the card before it. The direction will be going down<br/>
+    if the last cards value is lower then the card before it.
+    <br/><br/>
+    Flat:<br/>
+    If the tracks direction is flat, then any value card of any suit can be placed.
+    <br/><br/>
+    Down:<br/>
+    If the tracks direction is going down, then the player will need a card that's of a lower<br/>
+    value then the last card in said track, or a card of the same suit as the last card to<br/>
+    place a card on the track.
+    <br/><br/>
+    Up:<br/>
+    If the tracks direction is going up, then the player will need a card that's of a higher<br/>
+    value then the last card in said track, or a card of the same suit as the last card to<br/>
+    place a card on the track.
+
+    <br/><br/><br/>
+
+    End game conditions<br/>
+    The game is over when there are three sales total. Whoever has the majority of the<br/>
+    sales wins.
+  </h3>
 </div>
+
+<br/><br/><br/><br/><br/>
